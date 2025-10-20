@@ -12,21 +12,31 @@ services:
       - POSTGRES_PASSWORD=postgres
     expose:
       - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     restart: always
 
 
   backend:
-  container_name: backend
-  build:
-    context: .
-    dockerfile: ./dockerfiles/dev/django/dockerfile
-  volumes:
-    - ./core:/user/src/app
-  environment:
-   - DEBUG = True
-  restart: always
-  depends_on:
-    - db
+   container_name: backend
+   build:
+     context: .
+     dockerfile: ./dockerfiles/dev/django/Dockerfile
+   volumes:
+    - ./core:/usr/src/app
+   working_dir: /usr/src/app
+   command: python manage.py runserver 0.0.0.0:8000
+   ports: 
+   - "8000:8000"
+   environment:
+    - DEBUG=True
+   restart: always
+   depends_on:
+    db:
+      condition: service_healthy
 
   smtp4dev:
     image: rnwood/smtp4dev:v3
