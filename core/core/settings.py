@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     
     
     #my-app
-    
     'website',
     'accounts',
+    'shop',
     
 ]
 
