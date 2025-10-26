@@ -177,12 +177,13 @@
                                         <div class="product-action">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickview"
                                                 data-tooltip="tooltip" title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i class="far fa-heart"></i></a>
+                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
+                                                    class="far fa-heart"></i></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">{{object.title}}</a>
+                                    <h3 class="product-title"><a href="{% url 'shop:product-detail' slug=object.slug %}">{{object.title}}</a>
                                     </h3>
                                     <div class="product-rate">
                                         <i class="fas fa-star"></i>
@@ -193,7 +194,8 @@
                                     </div>
                                     <div class="product-bottom">
                                         <div class="product-price">
-                                            <span class="text-danger text-decoration-line-through">{{object.price}} تومان</span>
+                                            <span class="text-danger text-decoration-line-through">{{object.price}}
+                                                تومان</span>
                                             <span class="text-success fw-bold">{{object.price}} تومان</span>
                                         </div>
                                         <button type="button" class="product-cart-btn" data-bs-placement="right"
@@ -208,26 +210,45 @@
                     </div>
                 </div>
             </div>
+
+
+            {% if page_obj.has_other_pages %}
             <div class="pagination-area mb-0">
                 <div aria-label="نمونه پیمایش صفحه">
                     <ul class="pagination">
+
+                        {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                                 <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
                             </a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><span class="page-link">...</span></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
+                        {% endif %}
+
+
+                        {{ page_obj.page_range }}
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                             {% endfor %}
+
+
+                        {% if page_obj.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                                 <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
                             </a>
                         </li>
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>
+            {% endif %}
+
         </div>
     </div>
 </div>
