@@ -1,3 +1,3 @@
 ## Project Shop goemart
 
-<img src="./docs/db.Diagram.png">
+<img src="/docs/db.Diagram.png">
