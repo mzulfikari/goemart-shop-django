@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load shop_tags %}
 {% block title %}  جزئیات محصول {% endblock title %}
 
 {% block content %}
@@ -10,7 +11,7 @@
             <div class="site-breadcrumb-wrap">
                 <h4 class="breadcrumb-title">جزئیات محصول</h4>
                 <ul class="breadcrumb-menu">
-                    <li><a href="index-2.html"><i class="far fa-home"></i> صفحه اصلی</a></li>
+                    <li><a href="{% url 'website:index' %}"><i class="far fa-home"></i> صفحه اصلی</a></li>
                 </ul>
             </div>
         </div>
@@ -331,204 +332,8 @@
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="product-area related-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="site-heading-inline">
-                                <h2 class="site-title">موارد مرتبط</h2>
-                                <a href="#">بیشتر مشاهده کنید<i class="fas fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type new">جدید</span>
-                                    <a href="shop-single.html"><img src="{% static 'img/product/p7.png' %}" alt></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#quickview"
-                                               data-tooltip="tooltip" title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="افزودن برای مقایسه"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">ایرفون بلوتوث</a></h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>100.00 ریال</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="right"
-                                                data-tooltip="tooltip" title="افزودن به سبد خرید">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type hot">داغ</span>
-                                    <a href="shop-single.html"><img src="{% static 'img/product/p8.png' %}" alt></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#quickview"
-                                               data-tooltip="tooltip" title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="افزودن برای مقایسه"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">ایرفون بلوتوث</a></h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>100.00 ریال</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="right"
-                                                data-tooltip="tooltip" title="افزودن به سبد خرید">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type oos">در انبار موجود نیست</span>
-                                    <a href="shop-single.html"><img src="{% static 'img/product/p12.png' %}" alt></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#quickview"
-                                               data-tooltip="tooltip" title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="افزودن برای مقایسه"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">ایرفون بلوتوث</a></h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>100.00 ریال</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="right"
-                                                data-tooltip="tooltip" title="افزودن به سبد خرید">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type discount">10% تخفیف</span>
-                                    <a href="shop-single.html"><img src="{% static 'img/product/p14.png' %}" alt></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#quickview"
-                                               data-tooltip="tooltip" title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="افزودن برای مقایسه"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">ایرفون بلوتوث</a></h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <del>120 ریال</del>
-                                            <span>100.00 ریال</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="right"
-                                                data-tooltip="tooltip" title="افزودن به سبد خرید">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <div class="newsletter-area pt-60 pb-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="newsletter-content">
-                        <h3>دریافت کوپن تخفیف <span>20%</span></h3>
-                        <p>با مشترک شدن در خبرنامه ما</p>
-                        <div class="subscribe-form">
-                            <form action="#">
-                                <input type="email" class="form-control" placeholder="آدرس ایمیل معتبر شما">
-                                <button class="theme-btn" type="submit">
-                                    اشتراک <i class="far fa-paper-plane"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="newsletter-img-1">
-            <img src="{% static 'img/newsletter/01.png' %}" alt>
-        </div>
-        <div class="newsletter-img-2">
-            <img src="{% static 'img/newsletter/02.png' %}" alt>
-        </div>
-    </div>
-
+    
+        {% show_similar_product product=object %}
 
 
 {% endblock content %}
