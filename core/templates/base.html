@@ -655,6 +655,25 @@
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
 <script src="{% static 'js/flex-slider.js' %}"></script>
+<script>
+    function addToCart(product_id){
+    console.log(product_id)
+    $.ajax({
+        url: "{% url 'cart:session-add-product' %}",
+        method: 'POST',
+        data:{
+            product_id:product_id,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response){
+            console.log(response);
+        },
+        error: function(jqXHR,textStatus,errorThrown){
+            console.log(errorThrown)
+        }
+    });
+    }
+</script>
 </body>
 {% include "massages.html" %} 
 </html>

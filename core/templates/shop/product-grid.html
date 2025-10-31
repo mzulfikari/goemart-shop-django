@@ -218,9 +218,11 @@
                                                 تومان</span>
                                             <span class="text-success fw-bold">{{object.price}} تومان</span>
                                         </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="right"
+                                        <button type="button" class="product-cart-btn"
+                                            onclick="addToCart('{{object.id}}')"
+                                            data-bs-placement="right"
                                             data-tooltip="tooltip" title="افزودن به سبد خرید">
-                                            <i class="far fa-shopping-bag"></i>
+                                            <i class="fas fa-shopping-cart"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -318,5 +320,7 @@
         window.location.href = new_url
     }
 </script>
+
+
 
 {% endblock %} 
