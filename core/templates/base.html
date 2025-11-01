@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="{% static 'css/nice-select.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/flex-slider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <style>
+        .formatted-price {
+        font-weight: bold;
+        }
+    </style>
 
 
     {% block extra_css %} {% endblock extra_css %}
@@ -577,10 +584,6 @@
         </div>
     </div>
 </footer>
-
-
-
-<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.html"></script>
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'js/modernizr.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
@@ -598,6 +601,7 @@
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
 <script src="{% static 'js/flex-slider.js' %}"></script>
+<script src="{% static 'js/castuom.js' %}"></script>
 <script>
     function addToCart(product_id){
     console.log(product_id)
@@ -618,6 +622,17 @@
     });
     }
 </script>
+
+<script>
+function formatPriceInToman(element) {
+  let rawPrice = parseFloat(element.innerText);
+  let formatter = new Intl.NumberFormat("fa-IR");
+  let formattedPrice = formatter.format(rawPrice);
+  element.innerText = `${formattedPrice} تومان`;
+}
+</script>
+
+
 </body>
 {% include "massages.html" %} 
 </html>

@@ -52,7 +52,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="shop-cart-price">
+                                            <div class="shop-cart-price formattedPrice">
                                                 <span>{{item.total_price}}</span>
                                             </div>
                                         </td>
@@ -68,7 +68,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="shop-cart-subtotal">
+                                            <div class="shop-cart-subtotal formattedPrice">
                                                 <span>{{item.total_price}}</span>
                                             </div>
                                         </td>
@@ -109,7 +109,7 @@
                             <li><strong>تخفیف:</strong> <span>5.00 ریال</span></li>
                             <li><strong>ارسال:</strong> <span>رایگان</span></li>
                             <li><strong>مالیات:</strong> <span>25.00 ریال</span></li>
-                            <li class="shop-cart-total"><strong>مجموع:</strong> <span>{{get_total_payment_price}}</span></li>
+                            <li class="shop-cart-total formattedPrice"><strong>مجموع:</strong> <span>{{get_total_payment_price}}</span></li>
                         </ul>
                         <div class="text-end mt-40">
                             <a href="#" class="theme-btn">اکنون تسویه حساب کنید<i
@@ -122,30 +122,4 @@
     </div>
 </div>
 
-<div class="newsletter-area pt-60 pb-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mx-auto">
-                <div class="newsletter-content">
-                    <h3>دریافت کوپن تخفیف <span>20%</span></h3>
-                    <p>با مشترک شدن در خبرنامه ما</p>
-                    <div class="subscribe-form">
-                        <form action="#">
-                            <input type="email" class="form-control" placeholder="آدرس ایمیل معتبر شما">
-                            <button class="theme-btn" type="submit">
-                                اشتراک <i class="far fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="newsletter-img-1">
-        <img src="{% static 'img/newsletter/01.png' %}" alt>
-    </div>
-    <div class="newsletter-img-2">
-        <img src="{% static 'img/newsletter/02.png' %}" alt>
-    </div>
-</div>
 {% endblock %}
