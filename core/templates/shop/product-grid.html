@@ -214,9 +214,8 @@
                                     </div>
                                     <div class="product-bottom">
                                         <div class="product-price">
-                                            <span class="text-danger text-decoration-line-through">{{object.price}}
-                                                تومان</span>
-                                            <span class="text-success fw-bold">{{object.price}} تومان</span>
+                                            <span class="text-danger text-decoration-line-through formattedPrice">{{object.price}}</span>
+                                            <span class="text-success fw-bold formattedPrice">{{object.get_price}} </span>
                                         </div>
                                         <button type="button" class="product-cart-btn"
                                             onclick="addToCart('{{object.id}}')"
