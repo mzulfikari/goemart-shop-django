@@ -34,8 +34,8 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>    
-                                    {% for item in cart_items %}   
+                                <tbody>
+                                    {% for item in cart_items %}
                                     <tr>
                                         <td>
                                             <div class="shop-cart-img">
@@ -44,7 +44,9 @@
                                         </td>
                                         <td>
                                             <div class="shop-cart-content">
-                                                <h5 class="shop-cart-name"><a href="{% url 'shop:product-detail' slug=item.product_obj.slug %}">{{ item.product_obj.title }}</a></h5>
+                                                <h5 class="shop-cart-name"><a
+                                                        href="{% url 'shop:product-detail' slug=item.product_obj.slug %}">{{ item.product_obj.title }}</a>
+                                                </h5>
                                                 {% comment %} <div class="shop-cart-info">
                                                     <p><span>نوع:</span>هدفون</p>
                                                     <p><span>رنگ:</span>سیاه</p>
@@ -53,20 +55,26 @@
                                         </td>
                                         <td>
                                             <div class="shop-cart-price formattedPrice">
-                                                <span>{{item.total_price}}</span>
+                                                <span>{{item.product_obj.get_price}}</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="shop-cart-qty" dir="ltr">
-                                                <button class="minus-btn"><i class="fal fa-minus"></i></button>
-                                                {% comment %} {% with '' |center: as range %}
-                                                {% for _ in range %} {% endcomment %}
-                                                <input class="quantity" type="text" value="1" disabled>
-                                                {% comment %} {% endfor %}
-                                                {% endwith %}  {% endcomment %}
-                                                <button class="plus-btn"><i class="fal fa-plus"></i></button>
+                                                <select class="form-select form-select-sm mb-3" dir="rtl"
+                                                    style="text-align: right; text-align-last: right;"
+                                                    onchange="changeProductQuantity('{{ item.product_id }}', this.value)">
+                                                    {% with ''|center:item.product_obj.stock as range %}
+                                                    {% for _ in range %}
+                                                    <option value="{{ forloop.counter }}"
+                                                        {% if forloop.counter == item.quantity %} selected {% endif %}>
+                                                        {{ forloop.counter }}
+                                                    </option>
+                                                    {% endfor %}
+                                                    {% endwith %}
+                                                </select>
                                             </div>
                                         </td>
+
                                         <td>
                                             <div class="shop-cart-subtotal formattedPrice">
                                                 <span>{{item.total_price}}</span>
@@ -78,7 +86,7 @@
                                     </tr>
                                     {% endfor %}
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -105,11 +113,11 @@
                     <div class="shop-cart-summary">
                         <h5>خلاصه سبد خرید</h5>
                         <ul>
-                            <li><strong>مجموع فرعی:</strong> <span>4,500.00 ریال</span></li>
+                            <li><strong>مجموع فرعی:</strong> <span> {{get_total_payment_price}} </span></li>
                             <li><strong>تخفیف:</strong> <span>5.00 ریال</span></li>
                             <li><strong>ارسال:</strong> <span>رایگان</span></li>
-                            <li><strong>مالیات:</strong> <span>25.00 ریال</span></li>
-                            <li class="shop-cart-total formattedPrice"><strong>مجموع:</strong> <span>{{get_total_payment_price}}</span></li>
+                            <li class="shop-cart-total"><strong>مجموع:</strong>
+                                <span>{{get_total_payment_price}}</span></li>
                         </ul>
                         <div class="text-end mt-40">
                             <a href="#" class="theme-btn">اکنون تسویه حساب کنید<i
@@ -121,5 +129,32 @@
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+        function changeProductQuantity(product_id,quantity){
+        $.ajax({
+            url:"{% url 'cart:session-update-product' %}",
+            method: 'POST',
+            data:{
+                product_id:product_id,
+                quantity:quantity,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        success: function(response){
+            console.log(response);
+            window.location.reload()
+        },
+        error: function(jqXHR,textStatus,errorThrown){
+            console.log(errorThrown)
+        }
+    });
+    }
+
+</script>
+
 
 {% endblock %}
