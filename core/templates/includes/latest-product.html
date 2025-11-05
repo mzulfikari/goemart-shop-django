@@ -17,18 +17,18 @@
                     <div class="product-img">
                         <span class="type">پرطرفدار</span>
 
-                        <a href="shop-single.html"><img src="{{ latest_product.image.url }}" alt></a>
+                        <a href="{% url 'shop:product-detail' latest_product.slug %}"><img src="{{ latest_product.image.url }}" alt></a>
+                    {% if request.user.is_authenticated %}
                         <div class="product-action-wrap">
                             <div class="product-action">
                                 <a href="#" data-bs-placement="right" data-tooltip="tooltip"
                                    title="اضافه کردن به علاقه مندی ها"><i class="far fa-heart"></i></a>
-                                <a href="#" data-bs-placement="right" data-tooltip="tooltip" title="افزودن برای مقایسه"><i
-                                        class="far fa-arrows-repeat"></i></a>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">{{ latest_product.title }}</a></h3>
+                        <h3 class="product-title"><a href="{% url 'shop:product-detail' latest_product.slug %}">{{ latest_product.title }}</a></h3>
                         <div class="product-rate">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>

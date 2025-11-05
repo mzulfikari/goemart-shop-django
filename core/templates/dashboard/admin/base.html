@@ -479,9 +479,13 @@
 
 
 
-<main class="main"> {% block content %}     {% endblock content %} </main>
-
-
+<main class="main"> 
+    {% block header %}
+    {% endblock %}
+    {% include "dashboard/admin/sidebar.html" %} 
+    {% block content %} 
+    {% endblock content %}
+</main>
 
 
 <footer class="footer-area">
@@ -602,37 +606,6 @@
 <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
 <script src="{% static 'js/flex-slider.js' %}"></script>
 <script src="{% static 'js/castuom.js' %}"></script>
-<script>
-    function addToCart(product_id){
-    console.log(product_id)
-    $.ajax({
-        url: "{% url 'cart:session-add-product' %}",
-        method: 'POST',
-        data:{
-            product_id:product_id,
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        },
-        success: function(response){
-            $("#total-cart-item-count").html(response.total_quantity)
-            console.log(response);
-        },
-        error: function(jqXHR,textStatus,errorThrown){
-            console.log(errorThrown)
-        }
-    });
-    }
-</script>
-
-<script>
-function formatPriceInToman(element) {
-  let rawPrice = parseFloat(element.innerText);
-  let formatter = new Intl.NumberFormat("fa-IR");
-  let formattedPrice = formatter.format(rawPrice);
-  element.innerText = `${formattedPrice} تومان`;
-}
-</script>
-
-
 </body>
 {% include "massages.html" %} 
 </html>
