@@ -76,10 +76,12 @@ class Profile(models.Model):
     
     """ Personalizing the user profile and completing the information after registration """
     
-    user = models.OneToOneField('User',on_delete=models.CASCADE)
+    user = models.OneToOneField('User',on_delete=models.CASCADE,related_name="user_profile")
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=12,validators=[validate_iranian_cellphone_number])
+    image = models.ImageField(upload_to="profile/",default="profile/default.png")
+    
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     

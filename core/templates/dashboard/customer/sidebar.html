@@ -1,6 +1,6 @@
 {% load static %}
 
-<form method="post" action="{% url 'accounts:logout' %}">
+<form method="post" action="{% url 'dashboard:admin:profile/image/edit' %}">
     {% csrf_token %}
     <div class="user-area bg py-100">
         <div class="container">
@@ -9,11 +9,11 @@
                     <div class="sidebar">
                         <div class="sidebar-top">
                             <div class="sidebar-profile-img">
-                                <img src="assets/img/account/user.jpg" alt>
+                                <img src="{{request.user.user_profile.image.url}}" alt>
                                 <button type="button" class="profile-img-btn"><i class="far fa-camera"></i></button>
-                                <input type="file" class="profile-img-file">
+                                <input type="file" name="image" class="profile-img-file">
                             </div>
-                            <h5>{{request.user.profile.get_fullname}}</h5>
+                            <h5>{{request.user.user_profile.get_fullname}}</h5>
                             <p><a href="https://theme-script.ir/cdn-cgi/l/email-protection" class="__cf_email__"
                                     data-cfemail="d9b8b7adb6b7b099bca1b8b4a9b5bcf7bab6b4">{{request.user.email}}</a></p>
                         </div>

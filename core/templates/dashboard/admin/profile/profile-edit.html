@@ -25,9 +25,8 @@
                 <div class="user-card">
                     <h4 class="user-card-title">اطلاعات نمایه</h4>
                     <div class="user-form">
-                        <form action="." method="post">
+                        <form action="{% url 'dashboard:admin:profile-image-edit' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -55,11 +54,30 @@
                                 </div>
                             </div>
                         </div>
-                <button type="submit" class="theme-btn"><span class="far fa-user"></span>
-                                ذخیره تغییرات
+                    
+                    <div class="text-end mt-3">
+                        <div class="profile-image-wrapper position-relative d-inline-block">
+                            <img src="{{ request.user.user_profile.image.url }}" alt="Profile Image"
+                                class="img-fluid rounded-circle border border-secondary p-1 shadow-sm"
+                                style="width: 80px; height: 80px; object-fit: cover;"> <!-- کوچکتر شد -->
+
+                            <button type="button"
+                                class="btn btn-sm btn-dark rounded-circle position-absolute bottom-0 end-0"
+                                style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;"
+                                onclick="document.getElementById('id_profile_image').click();">
+                                <i class="far fa-camera" style="font-size: 0.8rem;"></i>
                             </button>
-                        </form>
+
+                            <input id="id_profile_image" type="file" name="image" class="d-none" accept="image/*">
+                        </div>
+                        <small class="text-muted d-block mt-1">تغییر تصویر</small>
                     </div>
+                    <button type="submit" class="theme-btn"><span class="far fa-user"></span>
+                        ذخیره تغییرات
+                    </button>
+                    </form>
                 </div>
             </div>
+        </div>
+        
 {% endblock content %}

@@ -82,8 +82,8 @@
                         {% if request.user.is_authenticated %}
                             <li>
                                 <a href="{% url 'dashboard:home' %}" class="list-item"><i class="far fa-user-circle"></i>
-                                 {% if request.user.profile.get_fullname %}
-                                {{ request.user.profile.get_fullname }}
+                                 {% if request.user.user_profile.profile.get_fullname %}
+                                {{ request.user.user_profile.profile.get_fullname }}
                                 {% elif request.user.email %}
                                 {{ request.user.email }}
                                 {% endif %}

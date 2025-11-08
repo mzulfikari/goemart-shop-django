@@ -9,16 +9,16 @@
                     <div class="sidebar">
                         <div class="sidebar-top">
                             <div class="sidebar-profile-img">
-                                <img src="{{request.user.profile.image.url}}" alt>
+                                <img src="{{request.user.user_profile.image.url}}" alt>
                                 <button type="button" class="profile-img-btn"><i class="far fa-camera"></i></button>
                                 <input type="file" class="profile-img-file">
                             </div>
-                            <h5>{{request.user.profile.get_fullname}}</h5>
+                            <h5>{{request.user.user_profile.get_fullname}}</h5>
                             <p><a href="https://theme-script.ir/cdn-cgi/l/email-protection" class="__cf_email__"
                                   data-cfemail="3958574d565750795c41585449555c175a5654">{{request.user.email}}</a></p>
                         </div>
                         <ul class="sidebar-list">
-                            <li><a href="vendor-dashboard.html"><i class="far fa-gauge-high"></i>
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:home' %} active {% endif %}" href="{% url 'dashboard:admin:home' %}"><i class="far fa-gauge-high"></i>
                                 داشبورد</a></li>
                             <li><a  class="{% if request.resolver_match.view_name == 'dashboard:admin:profile-edit' %} active {% endif %}" href="{% url 'dashboard:admin:profile-edit' %}"><i class="far fa-user"></i> ویرایش اطلاعات من</a></li>
                             <li><a href="vendor-product.html"><i class="far fa-layer-group"></i> محصولات</a></li>
