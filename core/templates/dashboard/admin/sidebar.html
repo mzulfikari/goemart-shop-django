@@ -21,7 +21,7 @@
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:home' %} active {% endif %}" href="{% url 'dashboard:admin:home' %}"><i class="far fa-gauge-high"></i>
                                 داشبورد</a></li>
                             <li><a  class="{% if request.resolver_match.view_name == 'dashboard:admin:profile-edit' %} active {% endif %}" href="{% url 'dashboard:admin:profile-edit' %}"><i class="far fa-user"></i> ویرایش اطلاعات من</a></li>
-                            <li><a href="vendor-product.html"><i class="far fa-layer-group"></i> محصولات</a></li>
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:dashboard:admin:product-list' %} active {% endif %}" href="{% url 'dashboard:admin:product-list' %}"><i class="far fa-layer-group"></i> محصولات</a></li>
                             <li><a href="vendor-add-product.html"><i class="far fa-upload"></i> افزودن محصول جدید</a></li>
                             <li><a href="vendor-order.html"><i class="far fa-shopping-bag"></i> همه سفارش‌ها <span
                                     class="badge badge-danger">02</span></a></li>

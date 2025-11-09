@@ -1,7 +1,6 @@
 from django.urls import path
 from .. import views
 
-app_name = "admin"
 
 urlpatterns = [
     path("security/edit/",views.CustomerSecurityEditView.as_view(),name="security-edit"),

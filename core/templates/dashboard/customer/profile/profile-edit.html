@@ -1,0 +1,83 @@
+{% extends "dashboard/admin/base.html" %}
+{% load static %}
+{% block header %}
+<div class="site-breadcrumb">
+    <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
+    <div class="container">
+        <div class="site-breadcrumb-wrap">
+            <h4 class="breadcrumb-title">داشبورد کاربر</h4>
+            <ul class="breadcrumb-menu">
+                <li><a href="{% url 'website:index' %}"><i class="far fa-home"></i> صفحه اصلی</a></li>
+                <li class="active"> ویرایش اطلاعات من</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-lg-9">
+    <div class="user-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="user-card">
+                    <h4 class="user-card-title">اطلاعات نمایه</h4>
+                    <div class="user-form">
+                        <form action="{% url 'dashboard:admin:profile-image-edit' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>نام</label>
+                                        {{form.first_name}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>نام خانوادگی</label>
+                                        {{form.last_name}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>ایمیل</label>
+                                        <input type="text" class="form-control" value="{{request.user.email}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>تلفن</label>
+                                        {{form.phone_number}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <div class="text-end mt-3">
+                        <div class="profile-image-wrapper position-relative d-inline-block">
+                            <img src="{{ request.user.user_profile.image.url }}" alt="Profile Image"
+                                class="img-fluid rounded-circle border border-secondary p-1 shadow-sm"
+                                style="width: 80px; height: 80px; object-fit: cover;"> <!-- کوچکتر شد -->
+
+                            <button type="button"
+                                class="btn btn-sm btn-dark rounded-circle position-absolute bottom-0 end-0"
+                                style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;"
+                                onclick="document.getElementById('id_profile_image').click();">
+                                <i class="far fa-camera" style="font-size: 0.8rem;"></i>
+                            </button>
+
+                            <input id="id_profile_image" type="file" name="image" class="d-none" accept="image/*">
+                        </div>
+                        <small class="text-muted d-block mt-1">تغییر تصویر</small>
+                    </div>
+                    <button type="submit" class="theme-btn"><span class="far fa-user"></span>
+                        ذخیره تغییرات
+                    </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+{% endblock content %}
