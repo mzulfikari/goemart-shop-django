@@ -4,5 +4,6 @@ from .. import views
 
 urlpatterns = [
     path("product/list/",views.AdminProductListView.as_view(),name="product-list"),
+    path("product/<int:pk>/edit",views.AdminProductListView.as_view(),name="product-edit"),
 
 ]

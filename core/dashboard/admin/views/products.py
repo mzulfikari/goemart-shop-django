@@ -8,11 +8,9 @@ from django.urls import reverse_lazy
 from shop.models import ProductModel,ProductCategoryModel,ProductStatusType
 from django.contrib import messages
 from django.core.exceptions import FieldError
+from .. forms import ProductForm
 
-
-
-
-class AdminProductListView(ListView,LoginRequiredMixin,HasAdminAccessPermission):
+class AdminProductListView(LoginRequiredMixin,ListView,HasAdminAccessPermission):
     
     template_name = "dashboard/admin/products/product-list.html"
     paginate_by = 10
@@ -43,3 +41,13 @@ class AdminProductListView(ListView,LoginRequiredMixin,HasAdminAccessPermission)
         context["total_items"] = self.get_queryset().count()
         context["categories"] = ProductCategoryModel.objects.all()
         return context 
+    
+    
+class AdminProductEditView(LoginRequiredMixin,HasAdminAccessPermission,SuccessMessageMixin,UpdateView):
+    template_name = "dashboard/admin/products/product-edit.html"
+    queryset = ProductModel.objects.all()
+    form_class = ProductForm
+    success_message = "ویرایش محصول با موفقیت انجام شد"
+    
+    def get_success_url(self):
+        return reverse_lazy("dashboard:admin:product-edit",kwargs={"pk",self.get_object().pk})

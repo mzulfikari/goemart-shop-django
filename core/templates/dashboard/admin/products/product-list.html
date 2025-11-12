@@ -1,5 +1,6 @@
 {% extends "dashboard/admin/base.html" %}
 {% load static %}
+{% block title %} لیست محصولات {% endblock title %}
 {% block header %}
 <div class="site-breadcrumb">
     <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
@@ -23,26 +24,46 @@
             <div class="col-lg-12">
                 <div class="user-card user-product">
                     <div class="user-card-header">
-                        <h4 class="user-card-title">محصولات</h4>
+                        <h6 class="user-card-title"> دسته بندی</h6>
                         <div class="user-card-header-right">
                             <div class="user-card-filter">
-                                <select class="select">
-                                    <option value>پیش فرض</option>
-                                    <option value="1">فعال</option>
-                                    <option value="2">در انتظار</option>
-                                    <option value="3">پنهان</option>
+                                <select id="order-by" class="select" name="category-id" id="category-id-filter">
+                                    {% for category in categories %}
+                                    <option value="{{category.is_published}}">{{category.title}}</option>
+                                    {% endfor  %}
                                 </select>
                             </div>
+
+                            <h6>  صفحه</h6>
+                            <select id="page-size-filter" class="select">
+                                <option value="6">6</option>
+                                <option value="12">12</option>
+                                <option value="15">15</option>
+                                <option value="18">18</option>
+                            </select>
+
+                            <select id="order-by-filter" class="select" name="order_by">
+                                <option value="1">مرتب‌سازی پیش‌فرض</option>
+                                <option value="-created_date">جدیدترین</option>
+                                <option value="created_date">قدیمی ترین</option>
+                                <option value="-price">گران ترین</option>
+                                <option value="price">ارزان ترین</option>
+                            </select>
+
                             <div class="user-card-search">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="جستجوکنید...">
-                                    <i class="far fa-search"></i>
-                                </div>
+                                <form method="get">
+                                    <div class="form-group">
+                                        <input type="search" name="q" id="search-query" class="form-control"
+                                            placeholder="جستجو کنید">
+                                        <button type="submit"  ><i class="fas fa-search"></i></button>
+                                    </div>
+                                </form>
+
                             </div>
-                            <a href="vendor-add-product.html" class="theme-btn"><span
-                                    class="far fa-plus-circle"></span>افزودن محصول</a>
+                            <a href="vendor-add-product.html" class="theme-btn"><span class="far fa-plus-circle"></span>افزودن محصول</a>
                         </div>
                     </div>
+
                     <div class="table-responsive">
                         <table class="table table-borderless text-nowrap">
                             <thead>
@@ -73,10 +94,13 @@
                                 <td>{{object.stock}} عدد</td>
                                 <td>{{object.get_show_raw_price}} تومان</td>
                                 <td>15 فروش</td>
-                                <td> {% if object.is_published %} <span class="badge badge-success">منتشر شده </span> {% else %} <span class="badge badge-danger">پیش نویس</span></td>{% endif %}
+                                <td> {% if object.is_published %} <span class="badge badge-success">منتشر شده </span>
+                                    {% else %} <span class="badge badge-danger">پیش نویس</span></td>{% endif %}
                                 <td>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
+                                    {% if object.is_published %}
+                                    <a target="_blank" href="{% url 'shop:product-detail' slug=object.slug %}" class="btn btn-outline-secondary btn-sm rounded-2"
                                         data-tooltip="tooltip" title="جزئیات"><i class="far fa-eye"></i></a>
+                                        {% endif %}
                                     <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
                                         data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
                                     <a href="#" class="btn btn-outline-danger btn-sm rounded-2" data-tooltip="tooltip"
@@ -88,49 +112,95 @@
                         </table>
                     </div>
 
+                    {% if page_obj.has_other_pages %}
+                    <div class="pagination-area mb-0">
+                        <div aria-label="نمونه پیمایش صفحه">
+                            <ul class="pagination">
 
-            {% if page_obj.has_other_pages %}
-            <div class="pagination-area mb-0">
-                <div aria-label="نمونه پیمایش صفحه">
-                    <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <button class="page-link"
+                                        onclick="changePage(`{{ page_obj.previous_page_number }}`)"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
+                                    </button>
+                                </li>
+                                {% endif %}
 
-                        {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)" aria-label="Previous">
-                                <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
-                            </button>
-                        </li>
-                        {% endif %}
-
-
-                        {{ page_obj.page_range }}
-                            {% for i in page_obj.paginator.page_range %}
+                                {{ page_obj.page_range }}
+                                {% for i in page_obj.paginator.page_range %}
                                 {% if page_obj.number == i %}
-                                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                <li class="page-item active"><a class="page-link">{{ i }}</a></li>
                                 {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
-                                    <li class="page-item"><button class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
-                            {% endif %}
-                             {% endfor %}
+                                <li class="page-item"><button class="page-link"
+                                        onclick="changePage(`{{i}}`)">{{ i }}</button></li>
+                                {% endif %}
+                                {% endfor %}
 
-
-                        {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)" aria-label="Next">
-                                <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
-                            </button>
-                        </li>
-                        {% endif %}
-
-                    </ul>
-                </div>
-            </div>
-            {% endif %}
-                </div>
-            </div>
-        </div>
+                                {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"
+                                        aria-label="Next">
+                                        <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
+                                    </button>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                 </div>
+              </div>
+           </div>
+         </div>
+       </div>
     </div>
-</div>
-</div>
-</div>
+  </div>
 </div>
 {% endblock content %}
+
+
+{% block extra_js %}
+
+<script>
+
+    $( document ).ready(function(){
+        let current_url_params = new URLSearchParams(window.location.search)
+        $("#page-size-filter").val(current_url_params.get("page_size") || "" )
+        $("#order-by-filter").val(current_url_params.get("order-by") || "" )
+        $("#search-query-filter").val(current_url_params.get("q") || "" )
+        $("#min-price-filter").val(current_url_params.get("min-price") || "" )
+        $("#max-price-filter").val(current_url_params.get("max-price") || "" )
+        $("#category-id-filter").val(current_url_params.get("category-id") || "" )
+    }); 
+
+    $('#page-size-filter').change(function(){
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("page_size",selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+
+    $('#order-by-filter').change(function(){
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("order_by",selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+
+</script>
+
+<script>
+    function changePage(page_number){
+        let current_url_params = new URLSearchParams(window.location.search)
+        current_url_params.set("page",page_number)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    }
+</script>
+
+
+
+{% endblock %} 

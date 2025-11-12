@@ -1,6 +1,6 @@
 {% load static %}
 
-<form method="post">
+<form method="post" action="{% url 'accounts:logout' %}">
     {% csrf_token %}
     <div class="user-area bg py-100">
         <div class="container">
@@ -18,10 +18,9 @@
                                     data-cfemail="d9b8b7adb6b7b099bca1b8b4a9b5bcf7bab6b4">{{request.user.email}}</a></p>
                         </div>
                         <ul class="sidebar-list">
-                            <li><a class="active" href="user-dashboard.html"><i class="far fa-gauge-high"></i>
-                                    داشبورد</a>
+                            <li><a  class="{% if request.resolver_match.view_name == 'dashboard:customer:home' %} active {% endif %}" href="{% url 'dashboard:customer:home' %}"><i class="far fa-gauge-high"></i>داشبورد</a>
                             </li>
-                            <li><a href="user-profile.html"><i class="far fa-user"></i> نمایه من</a></li>
+                            <li><a  class="{% if request.resolver_match.view_name == 'dashboard:customer:profile-edit' %} active {% endif %}" href="{% url 'dashboard:customer:profile-edit' %}"><i class="far fa-user"></i>ویرایش نمایه من </a></li>
                             <li><a href="order-list.html"><i class="far fa-shopping-bag"></i> فهرست سفارشات من <span
                                         class="badge badge-danger">02</span></a></li>
                             <li><a href="wishlist.html"><i class="far fa-heart"></i> فهرست علاقمندی های من <span
@@ -32,6 +31,7 @@
                                         class="badge badge-danger">02</span></a></li>
                             <li><a href="user-message.html"><i class="far fa-envelope"></i> پیام‌ها <span
                                         class="badge badge-danger">02</span></a></li>
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:customer:security-edit' %} active {% endif %}" href="{% url 'dashboard:customer:security-edit' %}"><i class="fa-solid fa-key"></i> تغییر رمز عبور</a></li>
 
                             <button type="submit" class="btn btn-link text-success p-0" style="text-decoration: none;color: #4ade80;transition: all 0.3s ease;transform: translateX(0);"
                                 onmouseover="this.style.transform='translateX(-10px)';

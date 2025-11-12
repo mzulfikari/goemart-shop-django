@@ -162,12 +162,12 @@
 
 
                             <div class="shop-sorty-label">مرتب سازی بر اساس:</div>
-                            <select id="order-by" class="select">
-                                <option value="1">مرتب‌سازی پیش‌فرض</option>
-                                <option value="5">جدیدترین</option>
-                                <option value="2">قدیمی ترین</option>
-                                <option value="3">گران ترین</option>
-                                <option value="4">ارزان ترین</option>
+                            <select id="order-by-filter" class="select" name="order_by">
+                                <option value="">مرتب‌سازی پیش‌فرض</option>
+                                <option value="-created_date">جدیدترین</option>
+                                <option value="created_date">قدیمی ترین</option>
+                                <option value="-price">گران ترین</option>
+                                <option value="price">ارزان ترین</option>
                             </select>
 
 
@@ -232,43 +232,40 @@
                 </div>
             </div>
 
+{% if page_obj.has_other_pages %}
+<div class="pagination-area mb-0">
+    <nav aria-label="نمونه پیمایش صفحه">
+        <ul class="pagination">
 
-            {% if page_obj.has_other_pages %}
-            <div class="pagination-area mb-0">
-                <div aria-label="نمونه پیمایش صفحه">
-                    <ul class="pagination">
-
-                        {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)" aria-label="Previous">
-                                <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
-                            </button>
-                        </li>
-                        {% endif %}
-
-
-                        {{ page_obj.page_range }}
-                            {% for i in page_obj.paginator.page_range %}
-                                {% if page_obj.number == i %}
-                                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
-                                {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
-                                    <li class="page-item"><button class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
-                            {% endif %}
-                             {% endfor %}
-
-
-                        {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)" aria-label="Next">
-                                <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
-                            </button>
-                        </li>
-                        {% endif %}
-
-                    </ul>
-                </div>
-            </div>
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
+                </a>
+            </li>
             {% endif %}
+
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                {% elif i >= page_obj.number|add:'-3' and i <= page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</div>
+{% endif %}
+
 
          </div>
       </div>
