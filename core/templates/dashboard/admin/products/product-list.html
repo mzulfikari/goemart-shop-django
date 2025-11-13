@@ -101,7 +101,7 @@
                                     <a target="_blank" href="{% url 'shop:product-detail' slug=object.slug %}" class="btn btn-outline-secondary btn-sm rounded-2"
                                         data-tooltip="tooltip" title="جزئیات"><i class="far fa-eye"></i></a>
                                         {% endif %}
-                                    <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
+                                    <a href="{% url 'dashboard:admin:product-edit' pk=object.pk %}" class="btn btn-outline-secondary btn-sm rounded-2"
                                         data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
                                     <a href="#" class="btn btn-outline-danger btn-sm rounded-2" data-tooltip="tooltip"
                                         title="حذف"><i class="far fa-trash-can"></i></a>

@@ -27,234 +27,69 @@
                 <a href="vendor-product.html" class="theme-btn"><span class="far fa-arrow-right"></span>همه
                     محصولات</a>
             </div>
-            <div class="col-lg-12">
+             <div class="col-lg-12">
                 <div class="user-form">
                     <h6 class="mb-20">اطلاعات پایه</h6>
-                    <form action="#">
+                        <form action="." method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="row align-items-center">
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>نام محصول</label>
-                                    <input type="text" class="form-control" placeholder="نام">
-                                    <div class="form-text">
-                                        حداکثر 100 کاراکتر HTML یا ایموجی مجاز نیست.
-                                    </div>
+                                    {{form.title}}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>دسته</label>
-                                    <select class="select">
-                                        <option value>دسته را انتخاب کنید</option>
-                                        <option value="1">مد و لوازم جانبی</option>
-                                        <option value="2">الکترونیک</option>
-                                        <option value="3">خواربارفروشی و بازار</option>
-                                        <option value="4">خانه و مبلمان</option>
-                                        <option value="5">اسباب بازی و بازی های ویدیویی</option>
-                                        <option value="6">هدایا</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>برند</label>
-                                    <select class="select">
-                                        <option value>برند را انتخاب کنید</option>
-                                        <option value="1">اپل</option>
-                                        <option value="2">آدیداس</option>
-                                        <option value="3">بوسیلوکس</option>
-                                        <option value="4">مکالمه</option>
-                                        <option value="5">پاناسونیک</option>
-                                        <option value="6">نایک</option>
-                                    </select>
+                                    <label>دسته بندی</label>
+                                    {{form.category}}
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label>اس کی یو</label>
-                                    <input type="text" class="form-control" placeholder="اس کی یو">
+                                <label>slug محصول - <button class="small-primary-button" type="button"
+                                    onclick="generateSlug()">ساختslug</button>
+                                </label>
+                                {{form.slug}}
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>قیمت</label>
-                                    <input type="text" class="form-control" placeholder="قیمت">
+                                    {{form.price}}
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>قیمت تخفیف </label>
-                                    <input type="text" class="form-control" placeholder="قیمت تخفیفی">
+                                    {{form.discount_percent}}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label> سهام</label>
-                                    <input type="text" class="form-control" placeholder="سهام">
+                                    <label> توضیح کوتاه</label>
+                                    {{form.brief_description}}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>واحد سهام</label>
-                                    <input type="text" class="form-control" placeholder="واحد سهام">
-                                </div>
+                                    <label>توصیحات </label>
+                                    {{form.description}}
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>رنگ</label>
-                                    <input type="text" class="form-control" placeholder="رنگ مثال: قرمز, مشکی">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>اندازه</label>
-                                    <input type="text" class="form-control" placeholder="اندازه مثال: SM, XL">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>برچسب ها یا کلمات کلیدی</label>
-                                    <input type="text" class="form-control" placeholder="برچسب ها: ساعت، مشکی، مدرن">
+                                    <label>تعداد</label>
+                                    {{form.stock}}
                                 </div>
                             </div>
                             <h6 class="mt-20 mb-20">آپلود تصاویر</h6>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <div class="form-upload-wrapper">
-                                        <div class="form-img-upload">
-                                            <span><i class="far fa-images"></i> آپلود تصاویر محصول</span>
-                                        </div>
-                                        <input type="file" class="form-img-file" multiple>
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 class="mt-20 mb-20">اطلاعات تفصیلی</h6>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>توضیح</label>
-                                    <textarea class="form-control" placeholder="نوشتن توضیحات" cols="30"
-                                        rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>اطلاعات اضافی</label>
-                                    <textarea class="form-control" placeholder="اطلاعات اضافی" cols="30"
-                                        rows="5"></textarea>
-                                </div>
-                            </div>
-                            <h6 class="mt-20 mb-20">ویژگی ها</h6>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature1">
-                                    <label class="form-check-label" for="feature1">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature2">
-                                    <label class="form-check-label" for="feature2">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature3">
-                                    <label class="form-check-label" for="feature3">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature4">
-                                    <label class="form-check-label" for="feature4">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature5">
-                                    <label class="form-check-label" for="feature5">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature6">
-                                    <label class="form-check-label" for="feature6">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature7">
-                                    <label class="form-check-label" for="feature7">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature8">
-                                    <label class="form-check-label" for="feature8">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="feature" type="checkbox" . id="feature9">
-                                    <label class="form-check-label" for="feature9">
-                                        مشخصات محصول
-                                    </label>
-                                </div>
-                            </div>
+                            {{form.image}}
                             <h6 class="mt-20 mb-20">وضعیت</h6>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="status" type="radio" value id="status1">
-                                    <label class="form-check-label" for="status1">
-                                        انتشار محصول
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="status" type="radio" . id="status2">
-                                    <label class="form-check-label" for="status2">
-                                        ذخیره پیش نویس (در انتظار)
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="status" type="radio" . id="status3">
-                                    <label class="form-check-label" for="status3">
-                                        محصول پنهان
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-4">
-                                <div class="form-check border-top pt-4">
-                                    <input class="form-check-input" name="agree" type="checkbox" . id="agree">
-                                    <label class="form-check-label" for="agree">
-                                        من با شما موافقم <a href="#">شرایط خدمات</a> و <a href="#">خط مشی
-                                            رازداری</a>.
-                                    </label>
-                                </div>
-                            </div>
+                           {{form.status}}
                         </div>
                         <button type="submit" class="theme-btn"><span class="far fa-save"></span> ارسال
                             محصول شما
                         </button>
-                    </form>
+                    </form> 
                  </div>
                </div>
              </div>
@@ -265,3 +100,30 @@
 </div>
 
 {% endblock content %}
+
+
+{% block extra_js %}
+
+<script>
+
+    function generateSlug() {
+        const title = $("#id_title").val();
+        const slug = slugify(title);
+        $("#id_slug").val(slug)
+    }
+
+    function slugify(titleStr) {
+        titleStr = titleStr.replace(/^\s+|\s+$/g, '');
+        titleStr = titleStr.toLowerCase();
+        //persian support
+        titleStr = titleStr.replace(/[^a-z0-9_\s-ءاأإآؤئبتثجحخدذرزسشصضطظعغفقكلمنهويةى]#u/, '')
+            // Collapse whitespace and replace by -
+            .replace(/\s+/g, '-')
+            // Collapse dashes
+            .replace(/-+/g, '-');
+        slugStr = titleStr;
+        return slugStr;
+    }
+</script>
+
+{% endblock %}

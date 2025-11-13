@@ -2,8 +2,9 @@ from django import forms
 from shop.models import ProductModel
 
 class ProductForm(forms.ModelForm):
-    model = ProductModel
-    fields = [
+    class Meta:
+        model = ProductModel
+        fields = [
         "category",
         "title",
         "slug",
@@ -15,3 +16,18 @@ class ProductForm(forms.ModelForm):
         "price",
         "discount_percent",
     ]
+        
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['category'].widget.attrs['class'] = 'form-control'
+        self.fields['title'].widget.attrs['class'] = 'form-control'
+        self.fields['slug'].widget.attrs['class'] = 'form-control '
+        self.fields['image'].widget.attrs['class'] = 'form-control'
+        self.fields['description'].widget.attrs['class'] = 'form-control text-center'
+        self.fields['brief_description'].widget.attrs['class'] = 'form-control text-center'
+        self.fields['stock'].widget.attrs['type'] = 'number'
+        self.fields['status'].widget.attrs['class'] = 'form-control'
+        self.fields['price'].widget.attrs['class'] = 'form-control'
+        self.fields['discount_percent'].widget.attrs['class'] = 'form-control'
+
+            
