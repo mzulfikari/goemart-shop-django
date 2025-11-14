@@ -60,7 +60,7 @@
                                 </form>
 
                             </div>
-                            <a href="vendor-add-product.html" class="theme-btn"><span class="far fa-plus-circle"></span>افزودن محصول</a>
+                            <a href="{% url 'dashboard:admin:product-create' %}" class="theme-btn"><span class="far fa-plus-circle"></span>افزودن محصول</a>
                         </div>
                     </div>
 
@@ -80,13 +80,13 @@
                                 {% for object in object_list %}
                                 <td>
                                     <div class="table-list-info">
-                                        <a href="#">
+                                        <a>
                                             <div class="table-list-img">
                                                 <img src="{{object.image.url}}" alt>
                                             </div>
-                                            <div class="table-list-content">
+                                            <div>
                                                 <h6>{{object.title}}</h6>
-                                                <span>{{object.id}}</span>
+                                                
                                             </div>
                                         </a>
                                     </div>
@@ -103,7 +103,7 @@
                                         {% endif %}
                                     <a href="{% url 'dashboard:admin:product-edit' pk=object.pk %}" class="btn btn-outline-secondary btn-sm rounded-2"
                                         data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
-                                    <a href="#" class="btn btn-outline-danger btn-sm rounded-2" data-tooltip="tooltip"
+                                    <a href="{% url 'dashboard:admin:product-delete' pk=object.pk %}" class="btn btn-outline-danger btn-sm rounded-2" data-tooltip="tooltip"
                                         title="حذف"><i class="far fa-trash-can"></i></a>
                                 </td>
                                 </tr>

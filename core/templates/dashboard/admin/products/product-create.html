@@ -1,6 +1,6 @@
 {% extends "dashboard/admin/base.html" %}
 {% load static %}
-{% block title %}ویرایش محصول{% endblock title %}
+{% block title %}ایجاد محصول{% endblock title %}
 
 
 {% block extra_css %}
@@ -64,7 +64,7 @@
     <div class="user-wrapper">
         <div class="user-card">
             <div class="user-card-header">
-                <h4 class="user-card-title">ویرایش محصول</h4>
+                <h4 class="user-card-title">افزودن محصول جدید</h4>
                 <a href="vendor-product.html" class="theme-btn"><span class="far fa-arrow-right"></span>همه
                     محصولات</a>
             </div>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>درصد تخفیف </label>
+                                <label>قیمت تخفیف </label>
                                 {{form.discount_percent}}
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>توضیحات </label>
+                                <label>توصیحات </label>
                                 {{form.description}}
                             </div>
                             <div class="col-lg-6">
@@ -128,11 +128,11 @@
                             {{form.status}}
                         </div>
                         <button type="submit" class="theme-btn">
-                            <span class="far fa-save"></span> ذخیره تغییرات
+                            <span class="far fa-save"></span>  ایجاد محصول
                         </button>
 
-                        <a href="{% url 'dashboard:admin:product-delete' pk=object.pk %}" class="btn btn-danger theme-btn delete-btn">
-                            <span class="far fa-trash-alt"></span> حذف
+                        <a href="{% url 'dashboard:admin:product-list'  %}" class="btn btn-danger theme-btn delete-btn">
+                            <span class="far fa-trash-alt"></span> بازگشت
                         </a>
                     </form>
                 </div>
