@@ -81,7 +81,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="#" class="shop-cart-remove"><i class="far fa-times"></i></a>
+                                            <a href="{% url 'cart:session-remove-product'  %}" class="shop-cart-remove"><i class="far fa-times"></i></a>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -120,7 +120,7 @@
                                 <span>{{get_total_payment_price}}</span></li>
                         </ul>
                         <div class="text-end mt-40">
-                            <a href="#" class="theme-btn">اکنون تسویه حساب کنید<i
+                            <a href="{% url 'order:checkout' %}" class="theme-btn">اکنون تسویه حساب کنید<i
                                     class="fas fa-arrow-left-long"></i></a>
                         </div>
                     </div>
