@@ -68,9 +68,9 @@ class CartSession:
                     cart_item.quantity = item["quantity"]
                     cart_item.save()
                     break
-                else:
-                    new_item = {"product_id":str(cart_item.product.id),"quantity":cart_item.quantity}
-                    self._cart["items"].append(new_item)
+            else:
+                new_item = {"product_id":str(cart_item.product.id),"quantity":cart_item.quantity}
+                self._cart["items"].append(new_item)
         self.merge_session_cart_in_db(user)
         self.save()  
 

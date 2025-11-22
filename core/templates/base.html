@@ -82,8 +82,8 @@
                         {% if request.user.is_authenticated %}
                             <li>
                                 <a href="{% url 'dashboard:home' %}" class="list-item"><i class="far fa-user-circle"></i>
-                                 {% if request.user.profile.get_fullname %}
-                                {{ request.user.profile.get_fullname }}
+                                 {% if request.user.user_profile.get_fullname %}
+                                {{ request.user.user_profile.get_fullname }}
                                 {% elif request.user.email %}
                                 {{ request.user.email }}
                                 {% endif %}
@@ -97,7 +97,7 @@
 
                             <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span> فهرست علاقمندی ها</a>
                             </li>
-                            <li><a href="{% url 'cart:cart-summarysummary' %}" id="total-cart-item-count" class="list-item"><i class="far fa-shopping-bag"></i><span>{{ cart.get_total_quantity }}</span>مشاهده سبد خرید</a>
+                            <li><a href="{% url 'cart:cart-summary' %}" id="total-cart-item-count" class="list-item"><i class="far fa-shopping-bag"></i><span>{{ cart.get_total_quantity }}</span>مشاهده سبد خرید</a>
                             </li>
                             
                             </li>
