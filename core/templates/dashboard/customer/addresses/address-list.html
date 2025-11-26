@@ -26,7 +26,7 @@
                       <div class="user-card-header">
                           <h4 class="user-card-title">لیست آدرس های من</h4>
                           <div class="user-card-header-right">
-                              <a href="add-address.html" class="theme-btn"><span
+                              <a href="{% url 'dashboard:customer:address-create' %}" class="theme-btn"><span
                                       class="far fa-plus-circle"></span>افزودن آدرس</a>
                           </div>
                       </div>
@@ -34,89 +34,27 @@
                           <table class="table table-borderless text-nowrap">
                               <thead>
                                   <tr>
-                                      <th>نام</th>
+                                      <th>شماره</th>
                                       <th>آدرس</th>
-                                      <th>ایمیل</th>
-                                      <th>تلفن</th>
+                                      <th>کد پستی</th>
                                       <th>عمل</th>
                                   </tr>
                               </thead>
                               <tbody>
+                                {% for object in object_list %}
                                   <tr>
-                                      <td><span class="table-list-code">آنتونی</span></td>
-                                      <td>نیویورک، خیابان میلفورد</td>
-                                      <td><a href="https://theme-script.ir/cdn-cgi/l/email-protection"
-                                              class="__cf_email__"
-                                              data-cfemail="7819160c171611381d00191508141d561b1715">ad@info.com</a>
-                                      </td>
-                                      <td>09888888888</td>
+                                      <td><span class="table-list-code">{{object.id}}</span></td>
+                                      <td>{{object.state}}, {{object.city}},{{object.address}}</td>
+                                      <td>{{object.zip_code}}</td>
+                                      
                                       <td>
-                                          <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
-                                          <a href="#" class="btn btn-outline-danger btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="حذف"><i class="far fa-trash-can"></i></a>
+                                          <a href="{% url 'dashboard:customer:address-edit' pk=object.pk %}" class="btn btn-outline-secondary btn-sm rounded-2"
+                                            data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
+                                          <a href="{% url 'dashboard:customer:address-delete' pk=object.pk %}" class="btn btn-outline-danger btn-sm rounded-2"
+                                            data-tooltip="tooltip" title="حذف"><i class="far fa-trash-can"></i></a>
                                       </td>
                                   </tr>
-                                  <tr>
-                                      <td><span class="table-list-code">آنتونی</span></td>
-                                      <td>نیویورک، خیابان میلفورد</td>
-                                      <td><a href="https://theme-script.ir/cdn-cgi/l/email-protection"
-                                              class="__cf_email__"
-                                              data-cfemail="86e7e8f2e9e8efc6e3fee7ebf6eae3a8e5e9eb">ad@info.com</a>
-                                      </td>
-                                      <td>09888888888</td>
-                                      <td>
-                                          <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
-                                          <a href="#" class="btn btn-outline-danger btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="حذف"><i class="far fa-trash-can"></i></a>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td><span class="table-list-code">آنتونی</span></td>
-                                      <td>نیویورک، خیابان میلفورد</td>
-                                      <td><a href="https://theme-script.ir/cdn-cgi/l/email-protection"
-                                              class="__cf_email__"
-                                              data-cfemail="7a1b140e1514133a1f021b170a161f54191517">ad@info.com</a>
-                                      </td>
-                                      <td>09888888888</td>
-                                      <td>
-                                          <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
-                                          <a href="#" class="btn btn-outline-danger btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="حذف"><i class="far fa-trash-can"></i></a>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td><span class="table-list-code">آنتونی</span></td>
-                                      <td>نیویورک، خیابان میلفورد</td>
-                                      <td><a href="https://theme-script.ir/cdn-cgi/l/email-protection"
-                                              class="__cf_email__"
-                                              data-cfemail="d7b6b9a3b8b9be97b2afb6baa7bbb2f9b4b8ba">ad@info.com</a>
-                                      </td>
-                                      <td>09888888888</td>
-                                      <td>
-                                          <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
-                                          <a href="#" class="btn btn-outline-danger btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="حذف"><i class="far fa-trash-can"></i></a>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td><span class="table-list-code">آنتونی</span></td>
-                                      <td>نیویورک، خیابان میلفورد</td>
-                                      <td><a href="https://theme-script.ir/cdn-cgi/l/email-protection"
-                                              class="__cf_email__"
-                                              data-cfemail="f2939c869d9c9bb2978a939f829e97dc919d9f">ad@info.com</a>
-                                      </td>
-                                      <td>09888888888</td>
-                                      <td>
-                                          <a href="#" class="btn btn-outline-secondary btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="ویرایش"><i class="far fa-pen"></i></a>
-                                          <a href="#" class="btn btn-outline-danger btn-sm rounded-2"
-                                              data-tooltip="tooltip" title="حذف"><i class="far fa-trash-can"></i></a>
-                                      </td>
-                                  </tr>
+                                {% endfor %}
                               </tbody>
                           </table>
                       </div>

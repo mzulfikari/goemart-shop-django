@@ -1,6 +1,5 @@
-{% extends "dashboard/admin/base.html" %}
+{% extends "dashboard/customer/base.html" %}
 {% load static %}
-
 
 {% block extra_css %}
 <style>
@@ -45,7 +44,7 @@
     <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
     <div class="container">
         <div class="site-breadcrumb-wrap">
-            <h4 class="breadcrumb-title">داشبورد مدیر</h4>
+            <h4 class="breadcrumb-title">داشبورد کاربر</h4>
             <ul class="breadcrumb-menu">
                 <li><a href="{% url 'website:index' %}"><i class="far fa-home"></i> صفحه اصلی</a></li>
                 <li class="active">حذف آدرس</li>
@@ -60,30 +59,29 @@
     <div class="user-wrapper">
         <div class="user-card">
             <div class="user-card-header">
-                <h4 class="user-card-title">حذف محصول</h4>
-                <a href="vendor-product.html" class="theme-btn"><span class="far fa-arrow-right"></span>همه
-                    محصولات</a>
+                <h4 class="user-card-title">حذف آدرس</h4>
+                <a href="{% url 'dashboard:customer:address-list' %}" class="theme-btn"><span class="fas fa-arrow-right"></span>فهرست آدرس</a>
             </div>
             <div class="col-lg-12">
                 <div class="user-form">
-                    <h6 class="mb-20">آیا از حذف محصول زیر مطمئن هستید؟</h6>
+                    <h6 class="mb-20">آیا از حذف آدرس زیر مطمئن هستید؟</h6>
                     <form action="." method="post">
                         {% csrf_token %}
                         <div class="row align-items-center">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>نام محصول</label>
-                                    {{object.title}}
+                                    <label>آدرس</label>
+                                    {{object.state}},{{object.city}}, {{object.address}}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>شناسه محصول</label>
+                                    <label>شناسه آدرس</label>
                                     {{object.pk}}
                                 </div>
                                 <button type="submit" class="btn btn-danger theme-btn delete-btn">
                                     <span class="far fa-trash-alt"></span> حذف </button>
-                                <a href="{% url 'dashboard:admin:product-edit' pk=object.pk %}"
+                                <a href="{% url 'dashboard:customer:address-edit' pk=object.pk %}"
                                     class="btn btn-secondary theme-btn back-btn">
                                     <span class="far fa-arrow-alt-circle-left"></span> بازگشت
                                 </a>

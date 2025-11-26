@@ -30,14 +30,14 @@ class CustomerAddressListView(LoginRequiredMixin,ListView,HasCustomerAccessPermi
    
 
 class CustomerAddressCreateView(LoginRequiredMixin,HasCustomerAccessPermission,SuccessMessageMixin,CreateView):
-    template_name = "dashboard/customer/addresses/address-create.html"
+    template_name = "dashboard/customer/addresses/address-created.html"
     form_class = UserAddressForm
     success_message = "ایجاد آدرس با موفقیت انجام شد"
     
-    def form_valid(self,form):
+    def form_valid(self, form):
         form.instance.user = self.request.user
         super().form_valid(form)
-        return redirect(reverse_lazy("dashboard:customer:address-edit",kwargs={"pk":self.instance.pk}))
+        return redirect(reverse_lazy("dashboard:customer:address-edit", kwargs={"pk": form.instance.pk}))
     
     def get_queryset(self):
         return UserAddressModel.objects.filter(user=self.request.user)

@@ -26,41 +26,37 @@
                     <div class="user-card-header">
                         <h4 class="user-card-title">افزودن آدرس جدید</h4>
                         <div class="user-card-header-right">
-                            <a href="address-list.html" class="theme-btn"><span class="fas fa-arrow-right"></span>فهرست
+                            <a href="{% url 'dashboard:customer:address-list' %}" class="theme-btn"><span class="fas fa-arrow-right"></span>فهرست
                                 آدرس</a>
                         </div>
                     </div>
                     <div class="user-form">
-                        <form action="#">
+                        <form method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>نام</label>
-                                        <input type="text" class="form-control" placeholder="نام">
+                                        <label>استان</label>
+                                        {{form.state}}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>نام خانوادگی</label>
-                                        <input type="text" class="form-control" placeholder="نام خانوادگی">
+                                        <label>شهر</label>
+                                        {{form.city}}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>ایمیل</label>
-                                        <input type="text" class="form-control" placeholder="آدرس ایمیل">
+                                        <label>کد پستی</label>
+                                        {{form.zip_code}}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>تلفن</label>
-                                        <input type="text" class="form-control" placeholder="شماره تلفن">
-                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>آدرس</label>
-                                        <input type="text" class="form-control" placeholder="آدرس کامل شما">
+                                        {{form.address}}
                                     </div>
                                 </div>
                             </div>
