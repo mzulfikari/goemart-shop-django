@@ -155,5 +155,5 @@ cython_debug/
 # ignore database files
 postgres/data/*
 
-prduct/img*
+product/img*
 core/media/*
