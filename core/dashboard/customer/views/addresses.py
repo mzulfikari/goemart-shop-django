@@ -16,11 +16,7 @@ from dashboard.customer.forms import UserAddressForm
 class CustomerAddressListView(LoginRequiredMixin,ListView,HasCustomerAccessPermission):
     
     template_name = "dashboard/customer/addresses/address-list.html"
-    paginate_by = 10
-    
-    def get_paginate_by(self,queryset):
-        return self.request.GET.get('page_size',self.paginate_by)
-    
+
     def get_queryset(self):
         queryset = UserAddressModel.objects.filter(user=self.request.user)
         if search_q:= self.request.GET.get("q"):
@@ -32,13 +28,7 @@ class CustomerAddressListView(LoginRequiredMixin,ListView,HasCustomerAccessPermi
                 pass
         return queryset
    
-    def get_context_data(self, **kwargs): 
-        context = super().get_context_data(**kwargs)
-        context["total_items"] = self.get_queryset().count()
-        return context 
-    
-   
-  
+
 class CustomerAddressCreateView(LoginRequiredMixin,HasCustomerAccessPermission,SuccessMessageMixin,CreateView):
     template_name = "dashboard/customer/addresses/address-create.html"
     form_class = UserAddressForm

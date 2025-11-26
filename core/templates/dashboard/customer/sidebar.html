@@ -25,7 +25,7 @@
                                         class="badge badge-danger">02</span></a></li>
                             <li><a href="wishlist.html"><i class="far fa-heart"></i> فهرست علاقمندی های من <span
                                         class="badge badge-danger">02</span></a></li>
-                            <li><a href="address-list.html"><i class="far fa-location-dot"></i> فهرست آدرس</a></li>
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:customer:address-list' %} active {% endif %}" href="{% url 'dashboard:customer:address-list' %}"><i class="far fa-location-dot"></i> فهرست آدرس</a></li>
                             </li>
                             <li><a href="user-notification.html"><i class="far fa-bell"></i> اعلان <span
                                         class="badge badge-danger">02</span></a></li>
