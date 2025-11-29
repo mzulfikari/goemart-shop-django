@@ -5,4 +5,5 @@ app_name = 'order'
 
 urlpatterns = [
     path('checkout/',views.OrderCheckOutView.as_view(),name="checkout"),
+    path('completed/',views.OrderCompletedOutView.as_view(),name="order-completed"),
 ]
