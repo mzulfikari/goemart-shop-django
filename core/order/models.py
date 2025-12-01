@@ -32,6 +32,7 @@ class CouponModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+
 class OrderModel(models.Model):
     user = models.ForeignKey("accounts.User",on_delete=models.PROTECT)
     
@@ -42,11 +43,18 @@ class OrderModel(models.Model):
     zip_code = models.CharField(default=0)
     
     total_price = models.DecimalField(default=0,max_digits=10,decimal_places=0,null=True,blank=True)
-    coupon = models.ForeignKey(CouponModel,on_delete=models.PROTECT)
+    coupon = models.ForeignKey(CouponModel,on_delete=models.PROTECT,null=True,blank=True)
     
     status = models.IntegerField(choices=OrderStatusType.choices,default=OrderStatusType.pending.value)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+    
+
+    def calculate_total_price(self):
+        return sum(item.price * item.quantity for item in self.order_items.all())
+    
+    def __str__(self):
+        return f"{self.user.email} - {self.id}"
     
 class OrderItemModel(models.Model):
     order = models.ForeignKey(OrderModel,on_delete=models.CASCADE)
@@ -58,4 +66,4 @@ class OrderItemModel(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"{self.product.title} - {self.cart.id}"
+        return f"{self.product.title} - {self.id}"
