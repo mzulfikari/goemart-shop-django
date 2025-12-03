@@ -25,13 +25,15 @@ class CouponModel(models.Model):
     code = models.CharField(max_length=100)
     discount_percent = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])
     max_limit_usage = models.PositiveIntegerField(default=10)
-    used_by = models.ManyToManyField('accounts.User',related_name= "coupon_users")
+    used_by = models.ManyToManyField('accounts.User',related_name= "coupon_users",null=True,blank=True)
     
     
-    expiration_date = models.DateTimeField(auto_now_add=True)
+    expiration_date = models.DateTimeField(null=True,blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.code
 
 class OrderModel(models.Model):
     user = models.ForeignKey("accounts.User",on_delete=models.PROTECT)
@@ -57,7 +59,7 @@ class OrderModel(models.Model):
         return f"{self.user.email} - {self.id}"
     
 class OrderItemModel(models.Model):
-    order = models.ForeignKey(OrderModel,on_delete=models.CASCADE)
+    order = models.ForeignKey(OrderModel,on_delete=models.CASCADE,related_name="order_items")
     product = models.ForeignKey('shop.ProductModel',on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     price = models.DecimalField(default=0,max_digits=10,decimal_places=0)

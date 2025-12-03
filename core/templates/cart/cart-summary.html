@@ -81,7 +81,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{% url 'cart:session-remove-product'  %}" class="shop-cart-remove"><i class="far fa-times"></i></a>
+                                            <a href="{% url 'cart:session-remove-product' %}" class="shop-cart-remove"><i class="far fa-times"></i></a>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -95,8 +95,7 @@
                             <div class="col-md-7 col-lg-6">
                                 <div class="shop-cart-coupon">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="کد کوپن شما">
-                                        <button class="theme-btn" type="submit">اعمال کوپن</button>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +119,7 @@
                                 <span>{{get_total_payment_price}}</span></li>
                         </ul>
                         <div class="text-end mt-40">
-                            <a href="{% url 'order:checkout' %}" class="theme-btn">اکنون تسویه حساب کنید<i
-                                    class="fas fa-arrow-left-long"></i></a>
+                          
                         </div>
                     </div>
                 </div>

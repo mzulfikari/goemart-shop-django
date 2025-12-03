@@ -1,7 +1,8 @@
+<!-- Cleaned & corrected UI structure for your checkout page -->
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% block header %}
+
 <div class="site-breadcrumb">
     <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
     <div class="container">
@@ -14,52 +15,63 @@
         </div>
     </div>
 </div>
-{% endblock %}
+
 <div class="shop-checkout2 py-100">
     <div class="container">
         <div class="shop-checkout-wrap">
             <div class="row">
+
+                <!-- Checkout Form Section -->
                 <div class="col-lg-8">
                     <div class="shop-checkout-step">
                         <nav class="nav checkout-step-list nav-pills nav-justified mb-3" id="shopCheckout"
                             role="tablist">
                             <h4 class="breadcrumb-title">ثبت سفارش</h4>
                         </nav>
+
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="step1" role="tabpanel"
-                                aria-labelledby="step1-tab" tabindex="0">
+                            <div class="tab-pane fade show active" id="step1" role="tabpanel">
                                 <div class="shop-checkout-form">
-                                    <a href="{% url 'dashboard:customer:address-list' %}" class="theme-btn"><span
-                                            class="fas fa-arrow-right"></span>مدیریت آدرس</a>
-                                    <form method="post">
+
+                                    <a href="{% url 'dashboard:customer:address-list' %}" class="theme-btn">
+                                        <span class="fas fa-arrow-right"></span> مدیریت آدرس
+                                    </a>
+
+                                    <form method="post" id="checkout">
                                         {% csrf_token %}
+
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>آدرس های من</label>
-                                                    <select name="address_id" class="select">
-                                                        <option value>آدرس را انتخاب کنید</option>
+                                                    <select form="checkout" name="address_id" class="select" required>
+                                                        <option>آدرس را انتخاب کنید</option>
                                                         {% for address in addresses %}
                                                         <option value="{{address.id}}">{{address.state}},
-                                                            {{address.city}},{{address.address}}</option>
+                                                            {{address.city}}, {{address.address}}</option>
                                                         {% endfor %}
                                                     </select>
+
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12">
-                                                <a href="{% url 'cart:cart-summary' %}"
-                                                    class="theme-btn theme-btn2"><span
-                                                        class="fas fa-arrow-right"></span>بازگشت به سبد خرید</a>
-                                                <button type="submit" class="theme-btn">ثبت<i
-                                                        class="fas fa-arrow-left"></i></button>
+
+                                            <div class="col-lg-12 mt-3">
+                                                <a href="{% url 'cart:cart-summary' %}" class="theme-btn theme-btn2">
+                                                    <span class="fas fa-arrow-right"></span> بازگشت به سبد خرید
+                                                </a>
+                                                <button type="submit" class="theme-btn">
+                                                    ثبت <i class="fas fa-arrow-left"></i>
+                                                </button>
                                             </div>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Summary Section -->
                 <div class="col-lg-4">
                     <div class="shop-cart-summary mt-lg-0">
                         <h5>خلاصه سبد خرید</h5>
@@ -67,17 +79,31 @@
                             <li><strong>مجموع فرعی:</strong> <span>4,500.00 ریال</span></li>
                             <li><strong>تخفیف:</strong> <span>5.00 ریال</span></li>
                             <li><strong>ارسال:</strong> <span>رایگان</span></li>
-                            <li><strong>مالیات:</strong> <span class="currency">{{total_max}}</span></li>
-                            <li class="shop-cart-total"><strong>مجموع:</strong> <span
-                                    class="currency">{{total_price}}</span></li>
+                            <li><strong>مالیات:</strong> <span id="total-tax" class="currency">{{total_tax}}</span></li>
+                            <li class="shop-cart-total"><strong>مجموع:</strong> <span id="total-price" class="currency">{{total_price}}</span></li>
                         </ul>
+                        <!-- Coupon input -->
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="shop-cart-coupon">
+                                    <div class="form-group">
+                                        <input name="coupon" type="text" form="checkout" class="form-control" id="coupon-input"
+                                            placeholder="کد کوپن شما">
+                                        <!-- Optional button if needed later -->
+                                         <button type="button" class="theme-btn" onclick="validateCoupon()">اعمال کوپن</button> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock content %}
+
 {% block extra_js %}
 <script>
     function formatPriceInToman(element) {
@@ -92,4 +118,49 @@
         });
     });
 </script>
+
+<script>
+    function applyDiscount(total_price,total_tax){
+        $("#total-price").html(total_price)
+        $("#total-tax").html(total_tax)
+        formatPriceInToman(document.getElementById("total_price"))
+        formatPriceInToman(document.getElementById("total_tax"))
+    }
+
+    function validateCoupon(){
+        $.ajax({
+            url:"{% url 'order:validate-coupon' %}",
+            method: 'POST',
+            data:{
+                code: $('#coupon-input').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function (response) {
+                console.log("success",response);
+                Toastify({
+                text: response.message,
+                className: `info`,
+                style: {
+                background: "blue",
+                }
+                }).showToast();
+                applyDiscount(response.total_price,response.total_tax)
+            },
+              error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                Toastify({
+                    text:jqXHR.responseJSON.message,
+                    className: `error`,
+                    style: {
+                      background: "red",
+                    }
+                  }).showToast();
+                
+                // handle the error case
+            }
+        });
+    }
+
+</script>
+
 {% endblock %}
