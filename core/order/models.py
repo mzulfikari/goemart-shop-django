@@ -1,13 +1,12 @@
+from decimal import Decimal
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class OrderStatusType(models.IntegerChoices):
     
     pending = 1 , "در انتظار پرداخت "
-    processing = 2 , "درحال پردازش"
-    shipped = 3 , "پرداخت شده "
-    delivered = 4 , "تحویل داده شده"
-    canceled = 5 , "لغو شده"
+    success = 2 , "موفقیت آمیز"
+    failed = 5 , "لغو شده"
    
 class UserAddressModel(models.Model):
     user = models.ForeignKey("accounts.User",on_delete=models.CASCADE) 
@@ -44,6 +43,8 @@ class OrderModel(models.Model):
     city = models.CharField(max_length=50)
     zip_code = models.CharField(default=0)
     
+    payment = models.ForeignKey('pyment.PaymentModel',on_delete=models.SET_NULL,null=True,blank=True)
+    
     total_price = models.DecimalField(default=0,max_digits=10,decimal_places=0,null=True,blank=True)
     coupon = models.ForeignKey(CouponModel,on_delete=models.PROTECT,null=True,blank=True)
     
@@ -54,6 +55,15 @@ class OrderModel(models.Model):
 
     def calculate_total_price(self):
         return sum(item.price * item.quantity for item in self.order_items.all())
+    
+    
+    def get_price(self):
+        
+        if self.coupon:            
+            return round(self.total_price - (self.total_price * Decimal( self.coupon.discount_percent /100)))
+        else:
+            return self.total_price
+    
     
     def __str__(self):
         return f"{self.user.email} - {self.id}"

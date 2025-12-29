@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ثبت سفارش{% endblock title %}
+{% block header %}
+<div class="site-breadcrumb">
+    <div class="site-breadcrumb-bg" style="background: url(assets/img/breadcrumb/01.jpg)"></div>
+    <div class="container">
+        <div class="site-breadcrumb-wrap">
+            <h4 class="breadcrumb-title">تسویه حساب کامل شد</h4>
+            <ul class="breadcrumb-menu">
+                <li><a href="index-2.html"><i class="far fa-home"></i> صفحه اصلی</a></li>
+                <li class="active">تسویه حساب کامل شد</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block content %}
+<div class="shop-checkout-complete py-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <div class="checkout-complete-content">
+                    <div class="checkout-complete-icon">
+                        <i class="far fa-times-circle"></i>
+                    </div>
+                    <h3>پرداخت ناموفق بود!</h3>
+                    <p>
+                        متأسفانه سفارش شما ثبت نشد و فرآیند پرداخت با خطا مواجه شد.
+                        در صورت کسر وجه، مبلغ حداکثر تا ۷۲ ساعت آینده به حساب شما بازگردانده می‌شود.
+                        لطفاً دوباره تلاش کنید.
+                    </p>
+                    <a href="{% url 'website:index' %}" class="theme-btn">
+                        بازگشت به فروشگاه
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

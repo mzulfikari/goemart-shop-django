@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import( 
     FormView,
     TemplateView,
@@ -15,7 +15,8 @@ from .forms import CheckOutForm
 from django.urls import reverse_lazy
 from cart.cart import CartSession
 from cart.models import CartModel
-
+from pyment.zarinpal_client import ZarinPalSandbox
+from pyment.models import PaymentModel
 
 
 class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormView):
@@ -41,9 +42,35 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         self.clear_cart(cart)
 
         total_price = order.calculate_total_price()
+        order.total_price = total_price  
         self.apply_coupon(coupon, order, user, total_price)
         order.save()
-        return super().form_valid(form)
+        return redirect(self.create_payment_url(order))
+
+
+    def create_payment_url(self, order):
+        zarinpal = ZarinPalSandbox()
+        amount_in_rial = order.total_price * 10  
+
+        if amount_in_rial < 1000:
+            raise ValueError("مبلغ سفارش کمتر از حداقل مجاز زرین‌پال است")
+
+        response = zarinpal.payment_request(amount_in_rial)
+
+        data = response.get("data")
+        if not data or data.get("code") != 100:
+            raise ValueError(f"ZarinPal request failed: {response}")
+
+        authority = data.get("authority")
+        payment_obj = PaymentModel.objects.create(
+            authority_id=authority,
+            amount=amount_in_rial,
+        )
+        order.payment = payment_obj
+        order.save()
+        return zarinpal.generate_payment_url(authority)
+
+
 
     def create_order(self, address):
         return OrderModel.objects.create(
@@ -95,6 +122,10 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 class OrderCompletedOutView(LoginRequiredMixin,HasCustomerAccessPermission,TemplateView):
     
     template_name = 'order/order-completed.html'
+ 
+class OrderFailedView(LoginRequiredMixin,HasCustomerAccessPermission,TemplateView):
+    
+    template_name = 'order/order-failed.html'
  
     
 class ValidateCouponView(LoginRequiredMixin,HasCustomerAccessPermission,View):

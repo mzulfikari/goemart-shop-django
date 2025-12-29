@@ -4,23 +4,17 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = config('SECRET_KEY',default='django-insecure-rbkp51sye_(@)$m_3%e^9_^)*kfrln@w2nmw)xm0b3)k&wge#!')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=lambda v: [item.strip() for item in v.strip(',')],default="*")
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,7 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    
     #my-app
     'website',
     'accounts',
@@ -37,6 +30,7 @@ INSTALLED_APPS = [
     'cart',
     'dashboard',
     'order',
+    'pyment',
     
 ]
 
@@ -180,3 +174,8 @@ LOGIN_REDIRECT_URL = '/'
 
 # Logout Redirect TO Index
 LOGOUT_REDIRECT_URL = '/'
+
+
+# payment gateway settings
+MERCHANT_ID = config("MERCHANT_ID",default="4ced0a1e-4ad8-4309-9668-3ea3ae8e8897")
+SANDBOX_MODE = config("SANDBOX_MODE",cast=bool,default=True)
