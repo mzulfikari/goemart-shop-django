@@ -1,6 +1,6 @@
 {% load static %}
 
-<form method="post" action="{% url 'accounts:logout' %}">
+<form method="post">
     {% csrf_token %}
     <div class="user-area bg py-100">
         <div class="container">
@@ -25,7 +25,7 @@
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:customer:profile-edit' %} active {% endif %}"
                                     href="{% url 'dashboard:customer:profile-edit' %}"><i class="far fa-user"></i>ویرایش
                                     نمایه من </a></li>
-                            <li><a href="{% url 'order:checkout' %}" <i class="far fa-shopping-bag"></i> فهرست سفارشات
+                            <li><a href="{% url 'dashboard:customer:order-list' %}" <i class="far fa-shopping-bag"></i> فهرست سفارشات
                                     من <span class="badge badge-danger">02</span></a></li>
                             <li><a href="wishlist.html"><i class="far fa-heart"></i> فهرست علاقمندی های من <span
                                         class="badge badge-danger">02</span></a></li>

@@ -5,7 +5,7 @@ from django.shortcuts import (
     )
 from django.views.generic import View
 
-from core.order.models import OrderModel, OrderStatusType
+from order.models import OrderModel, OrderStatusType
 from .models import PaymentModel,PaymentStatusType
 from django.urls import reverse_lazy
 from .zarinpal_client import ZarinPalSandbox

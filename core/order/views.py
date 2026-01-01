@@ -119,11 +119,11 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         return context
 
     
-class OrderCompletedOutView(LoginRequiredMixin,HasCustomerAccessPermission,TemplateView):
+class OrderCompletedOutView(TemplateView):
     
     template_name = 'order/order-completed.html'
  
-class OrderFailedView(LoginRequiredMixin,HasCustomerAccessPermission,TemplateView):
+class OrderFailedView(TemplateView):
     
     template_name = 'order/order-failed.html'
  
