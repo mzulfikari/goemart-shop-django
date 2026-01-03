@@ -10,7 +10,6 @@
                         <div class="sidebar-top">
                             <div class="sidebar-profile-img">
 
-
                                 <img src="{{request.user.user_profile.image.url}}" alt>
                                 <button type="button" class="profile-img-btn"><i class="far fa-camera"></i></button>
                                 <input type="file" class="profile-img-file">
@@ -20,45 +19,29 @@
                                     data-cfemail="3958574d565750795c41585449555c175a5654">{{request.user.email}}</a></p>
                         </div>
 
-
-
                         <ul class="sidebar-list">
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:home' %} active {% endif %}"
-                                    href="{% url 'dashboard:admin:home' %}"><i class="far fa-gauge-high"></i> داشبورد</a></li>
+                                    href="{% url 'dashboard:admin:home' %}"><i class="far fa-gauge-high"></i>
+                                    داشبورد</a></li>
 
-
-                                    
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:profile-edit' %} active {% endif %}"
-                                    href="{% url 'dashboard:admin:profile-edit' %}"><i class="far fa-user"></i> ویرایش اطلاعات من</a></li>
+                                    href="{% url 'dashboard:admin:profile-edit' %}"><i class="far fa-user"></i> ویرایش
+                                    اطلاعات من</a></li>
 
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:product-list' %} active {% endif %}"
+                                    href="{% url 'dashboard:admin:product-list' %}"><i
+                                        class="far fa-layer-group"></i>مدیریت محصولات</a></li>
 
-                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:product-list' or request.resolver_match.view_name == 'dashboard:admin:product-edit' or request.resolver_match.view_name == 'dashboard:admin:product-delete' or 'dashboard:admin:product-create'  %} active {% endif %}"
-                                    href="{% url 'dashboard:admin:product-list' %}"><i class="far fa-layer-group"></i>مدیریت محصولات</a></li>
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:order-list' %} active {% endif %}"
+                                    href="{% url 'dashboard:admin:order-list' %}"><i class="far fa-shopping-bag"></i>
+                                    همه سفارش‌ها <span class="badge badge-danger">02</span></a></li>
 
-
-                            <li><a href="vendor-order.html"><i class="far fa-shopping-bag"></i> همه سفارش‌ها <span class="badge badge-danger">02</span></a></li>
-
-
-                            <li><a href="vendor-payout.html"><i class="far fa-wallet"></i> پرداخت</a></li>
-
-
-                            <li><a href="vendor-transaction.html"><i class="far fa-credit-card"></i> تراکنش</a></li>
-
-
-                            <li><a href="vendor-notification.html"><i class="far fa-bell"></i> اعلان <span class="badge badge-danger">02</span></a></li>
-
-
-                            <li><a href="vendor-message.html"><i class="far fa-envelope"></i> پیام‌ها <span class="badge badge-danger">02</span></a></li>
-
+                            <li><a href="vendor-notification.html"><i class="far fa-bell"></i> اعلان <span
+                                        class="badge badge-danger">02</span></a></li>
 
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:security-edit' %} active {% endif %}"
                                     href="{% url 'dashboard:admin:security-edit' %}"><i class="fa-solid fa-key"></i>
                                     تغییر رمز عبور</a></li>
-
-
-
-                            <li><a href="vendor-setting.html"><i class="far fa-gear"></i> تنظیمات</a></li>
-
 
                             <button type="submit" class="btn btn-link text-success p-0"
                                 style="text-decoration: none;color: #4ade80;transition: all 0.3s ease;transform: translateX(0);"

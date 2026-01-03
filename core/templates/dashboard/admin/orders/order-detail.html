@@ -1,6 +1,6 @@
-{% extends "dashboard/customer/base.html" %}
+{% extends "dashboard/admin/base.html" %}
 {% load static %}
-{% block title %}جزئیات سفارش{% endblock title %}
+{% block title %}جزئیات آدرس{% endblock title %}
 {% block header %}
 <div class="site-breadcrumb">
     <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
@@ -73,9 +73,9 @@
                             <div class="order-detail-content">
                                 <h5>خلاصه سفارش</h5>
                                 <ul>
-                                    <l>درصد تخفیف <span>{{object.coupon.discount_percent}}%</span></li>
+                                    <li>تخفیف<span>{{object.coupon.discount_percent}}%</span></li>
                                     <li>مجموع<span>{{object.total_price}}</span></li>
-                                    <a href="{% url 'dashboard:customer:order-invoice' pk=object.pk %}" class="theme-btn"><span class="fas fa-arrow"></span>فاکتور</a>
+                                     <a href="{% url 'dashboard:admin:order-invoice' pk=object.pk %}" class="theme-btn"><span class="fas fa-arrow"></span>فاکتور</a>
                                 </ul>
                             </div>
                         </div>
