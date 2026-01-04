@@ -17,7 +17,6 @@
     </div>
 </div>
 
-
 <div class="shop-area3 bg py-100">
     <div class="container">
         <div class="row">
@@ -26,18 +25,16 @@
                     <div class="shop-widget">
                         <div class="shop-search-form">
 
-
                             <h4 class="shop-widget-title">جستجو</h4>
-                            <form  method="get">
+                            <form method="get">
                                 <div class="form-group">
-                                    <input type="text" name="q" id="search-query" class="form-control" placeholder="جستجو کنید">
+                                    <input type="text" name="q" id="search-query" class="form-control"
+                                        placeholder="جستجو کنید">
                                     <button type="search"><i class="far fa-search"></i></button>
                                 </div>
                             </form>
                         </div>
                     </div>
-
-
 
                     <div class="shop-widget">
                         <h4 class="shop-widget-title">دسته بندی ها</h4>
@@ -49,8 +46,6 @@
                             {% endfor %}
                         </ul>
                     </div>
-
-
 
                     <div class="shop-widget">
                         <h4 class="shop-widget-title">برندها</h4>
@@ -138,7 +133,6 @@
                         </ul>
                     </div>
 
-
                     <div class="shop-widget">
                         <h4 class="shop-widget-title">محدوده قیمت</h4>
                         <div class="price-range-box">
@@ -149,9 +143,7 @@
                         </div>
                     </div>
 
-
-
-                        </li>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -159,7 +151,6 @@
                 <div class="col-md-12">
                     <div class="shop-sort">
                         <div class="shop-sort-box">
-
 
                             <div class="shop-sorty-label">مرتب سازی بر اساس:</div>
                             <select id="order-by-filter" class="select" name="order_by">
@@ -170,8 +161,7 @@
                                 <option value="price">ارزان ترین</option>
                             </select>
 
-
-                             <div class="shop-sorty-label">تعداد در صفحه</div>
+                            <div class="shop-sorty-label">تعداد در صفحه</div>
                             <select id="page-size-filter" class="select">
                                 <option value="6">6</option>
                                 <option value="12">12</option>
@@ -182,8 +172,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
                 <div class="shop-item-wrapper item-3">
                     <div class="row">
@@ -197,13 +185,16 @@
                                         <div class="product-action">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#quickview"
                                                 data-tooltip="tooltip" title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
-                                                    class="far fa-heart"></i></a>
+                                                {% if request.user.is_authenticated %}
+                                            <button type="button" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i class="far fa-heart {% if object.id in wishlist_items %} active {% endif %}"></i>
+                                            </button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h3 class="product-title"><a href="{% url 'shop:product-detail' slug=object.slug %}">{{object.title}}</a>
+                                    <h3 class="product-title"><a
+                                            href="{% url 'shop:product-detail' slug=object.slug %}">{{object.title}}</a>
                                     </h3>
                                     <div class="product-rate">
                                         <i class="fas fa-star"></i>
@@ -214,12 +205,13 @@
                                     </div>
                                     <div class="product-bottom">
                                         <div class="product-price">
-                                            <span class="text-danger text-decoration-line-through formattedPrice">{{object.price}}</span>
-                                            <span class="text-success fw-bold formattedPrice">{{object.get_price}} </span>
+                                            <span
+                                                class="text-danger text-decoration-line-through formattedPrice">{{object.price}}</span>
+                                            <span class="text-success fw-bold formattedPrice">{{object.get_price}}
+                                            </span>
                                         </div>
                                         <button type="button" class="product-cart-btn"
-                                            onclick="addToCart('{{object.id}}')"
-                                            data-bs-placement="right"
+                                            onclick="addToCart('{{object.id}}')" data-bs-placement="right"
                                             data-tooltip="tooltip" title="افزودن به سبد خرید">
                                             <i class="fas fa-shopping-cart"></i>
                                         </button>
@@ -232,91 +224,81 @@
                 </div>
             </div>
 
-{% if page_obj.has_other_pages %}
-<div class="pagination-area mb-0">
-    <nav aria-label="نمونه پیمایش صفحه">
-        <ul class="pagination">
+            {% if page_obj.has_other_pages %}
+            <div class="pagination-area mb-0">
+                <nav aria-label="نمونه پیمایش صفحه">
+                    <ul class="pagination">
 
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                    <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
-                </a>
-            </li>
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                        {% elif i >= page_obj.number|add:'-3' and i <= page_obj.number|add:'3' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            </div>
             {% endif %}
 
-            {% for i in page_obj.paginator.page_range %}
-                {% if page_obj.number == i %}
-                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
-                {% elif i >= page_obj.number|add:'-3' and i <= page_obj.number|add:'3' %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                    <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
-                </a>
-            </li>
-            {% endif %}
-
-        </ul>
-    </nav>
-</div>
-{% endif %}
-
-
-         </div>
-      </div>
+        </div>
     </div>
 </div>
+</div>
 {% endblock content %}
-
-
-
 
 {% block extra_js %}
 
 <script>
-
-    $( document ).ready(function(){
+    $(document).ready(function() {
         let current_url_params = new URLSearchParams(window.location.search)
-        $("#page-size-filter").val(current_url_params.get("page_size") || "" )
-        $("#order-by-filter").val(current_url_params.get("order-by") || "" )
-        $("#search-query-filter").val(current_url_params.get("q") || "" )
-        $("#min-price-filter").val(current_url_params.get("min-price") || "" )
-        $("#max-price-filter").val(current_url_params.get("max-price") || "" )
-        $("#category-id-filter").val(current_url_params.get("category-id") || "" )
-    }); 
-
-    $('#page-size-filter').change(function(){
+        $("#page-size-filter").val(current_url_params.get("page_size") || "")
+        $("#order-by-filter").val(current_url_params.get("order-by") || "")
+        $("#search-query-filter").val(current_url_params.get("q") || "")
+        $("#min-price-filter").val(current_url_params.get("min-price") || "")
+        $("#max-price-filter").val(current_url_params.get("max-price") || "")
+        $("#category-id-filter").val(current_url_params.get("category-id") || "")
+    });
+    $('#page-size-filter').change(function() {
         let current_url_params = new URLSearchParams(window.location.search)
         var selectedOption = $(this).val();
-        current_url_params.set("page_size",selectedOption)
+        current_url_params.set("page_size", selectedOption)
         let new_url = window.location.pathname + "?" + current_url_params.toString()
         window.location.href = new_url
     });
-
-    $('#order-by-filter').change(function(){
+    $('#order-by-filter').change(function() {
         let current_url_params = new URLSearchParams(window.location.search)
         var selectedOption = $(this).val();
-        current_url_params.set("order_by",selectedOption)
+        current_url_params.set("order_by", selectedOption)
         let new_url = window.location.pathname + "?" + current_url_params.toString()
         window.location.href = new_url
     });
-
 </script>
 
 <script>
-    function changePage(page_number){
+    function changePage(page_number) {
         let current_url_params = new URLSearchParams(window.location.search)
-        current_url_params.set("page",page_number)
+        current_url_params.set("page", page_number)
         let new_url = window.location.pathname + "?" + current_url_params.toString()
         window.location.href = new_url
     }
 </script>
 
-
-
-{% endblock %} 
+{% endblock %}
