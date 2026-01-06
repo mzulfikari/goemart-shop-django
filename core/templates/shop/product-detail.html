@@ -107,9 +107,15 @@
                                     <div class="shop-single-btn">
                                         <a href="#" class="theme-btn"><span class="far fa-shopping-bag"></span>افزودن به
                                             سبد خرید</a>
-                                        <a href="#" class="theme-btn theme-btn2" data-tooltip="tooltip"
-                                           title="اضافه کردن به علاقه مندی ها"><span class="far fa-heart"></span></a>
-                                    </div>
+                                         {% if request.user.is_authenticated %}
+                                            <button type="button"
+                                                class="wishlist-btn {% if is_wished %} is-active {% endif %}"
+                                                title="افزودن به علاقه‌مندی‌ها" onclick="addTOwishlist(this,`{{object.id}}`)" aria-label="افزودن به علاقه‌مندی‌ها">
+                                                <span class="icon">
+                                                    <i class="far fa-heart"></i>
+                                                </span>
+                                            </button>
+                                            {% endif %}
                                 </div>
                             </div>
                         </div>

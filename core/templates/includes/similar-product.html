@@ -22,8 +22,13 @@
                             <div class="product-action">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#quickview" data-tooltip="tooltip"
                                     title="نمایش سریع"><i class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="اضافه کردن به علاقه مندی ها"><i
-                                        class="far fa-heart"></i></a>
+                                <button type="button"
+                                    class="wishlist-btn {% if similar_product.id in wishlist_items %}is-active{% endif %}"
+                                    title="افزودن به علاقه‌مندی‌ها" onclick="addTOwishlist(this,`{{similar_product.id}}`)"  aria-label="افزودن به علاقه‌مندی‌ها">
+                                    <span class="icon">
+                                        <i class="far fa-heart"></i>
+                                    </span>
+                                </button>
                                 <a href="#" data-tooltip="tooltip" title="افزودن برای مقایسه"><i
                                         class="far fa-arrows-repeat"></i></a>
                             </div>
@@ -51,9 +56,9 @@
                 </div>
             </div>
             {% endfor %}
-          </div>
-       </div>
-     </div>
-   </div>
-  </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 </div>

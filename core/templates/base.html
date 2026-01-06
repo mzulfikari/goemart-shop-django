@@ -30,10 +30,48 @@
 
     <style>
         .formatted-price {
-        font-weight: bold;
+            font-weight: bold;
+        }
+
+        .wishlist-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid #e5e5e5;
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+
+        .wishlist-btn i {
+            font-size: 18px;
+            color: #555;
+            transition: all .25s ease;
+        }
+
+        /* hover */
+        .wishlist-btn:hover {
+            border-color: #ff4d4f;
+        }
+
+        .wishlist-btn:hover i {
+            color: #ff4d4f;
+        }
+
+        /* active */
+        .wishlist-btn.is-active {
+            background: #ff4d4f;
+            border-color: #ff4d4f;
+        }
+
+        .wishlist-btn.is-active i {
+            color: #fff;
+            font-weight: 900;
         }
     </style>
-
 
     {% block extra_css %} {% endblock extra_css %}
 
@@ -42,602 +80,643 @@
 
 <body class="home-3">
 
-<div class="preloader">
-    <div class="loader-ripple">
-        <div></div>
-        <div></div>
-    </div>
-</div>
-
-
-<header class="header">
-
-
-    <div class="header-middle">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-5 col-lg-3 col-xl-3">
-                    <div class="header-middle-logo">
-                        <a class="navbar-brand" href="{% url 'website:index' %}">
-                            <img src="{% static 'img/logo/logo.png' %}" alt="logo">
-                        </a>
-                    </div>
-                </div>
-                <div class="d-none d-lg-block col-lg-6 col-xl-5">
-                    <div class="header-middle-search">
-                        <form action="{% url 'shop:product-grid' %}">
-                            <div class="search-content">
-                                <input type="text" name="q" class="form-control" placeholder="در اینجا جستجو کنید...">
-                                <button type="submit" class="search-btn"><i class="far fa-search"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-7 col-lg-3 col-xl-4">
-                    <div class="header-middle-right">
-                        <ul class="header-middle-list">
-
-
-
-                        {% if request.user.is_authenticated %}
-                            <li>
-                                <a href="{% url 'dashboard:home' %}" class="list-item"><i class="far fa-user-circle"></i>
-                                 {% if request.user.user_profile.get_fullname %}
-                                {{ request.user.user_profile.get_fullname }}
-                                {% elif request.user.email %}
-                                {{ request.user.email }}
-                                {% endif %}
-                            </a>
-                        </li>
-                            {% else %} 
-                            <li><a href="{% url 'accounts:login' %}" class="list-item"><i class="far fa-user-circle"></i>ورود</a></li>
-                        {% endif %}
-
-                        
-
-                            <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span> فهرست علاقمندی ها</a>
-                            </li>
-                            <li><a href="{% url 'cart:cart-summary' %}" id="total-cart-item-count" class="list-item"><i class="far fa-shopping-bag"></i><span>{{ cart.get_total_quantity }}</span>مشاهده سبد خرید</a>
-                            </li>
-                            
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <div class="preloader">
+        <div class="loader-ripple">
+            <div></div>
+            <div></div>
         </div>
     </div>
 
-    <div class="main-navigation">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container position-relative">
-                <a class="navbar-brand" href="index-2.html">
-                    <img src="{% static 'img/logo/logo.png' %}" class="logo-scrolled" alt="logo">
-                </a>
-                <div class="category-all">
-                    <button class="category-btn" type="button">
-                        <i class="far fa-grid-2-plus"></i><span>همه دسته ها</span>
-                    </button>
-                    <ul class="main-category hide-category">
-                        <li>
-                            <a href="#">
-                                <img src="{% static 'img/icon/shopping-bag.svg' %}" alt>
-                                <span>موارد جدید</span><i class="far fa-angle-left"></i>
+    <header class="header">
+
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-5 col-lg-3 col-xl-3">
+                        <div class="header-middle-logo">
+                            <a class="navbar-brand" href="{% url 'website:index' %}">
+                                <img src="{% static 'img/logo/logo.png' %}" alt="logo">
                             </a>
-                            <ul class="sub-category">
-                                <li><a href="#"><img src="{% static 'img/icon/dress.svg' %}" alt><span>لوازم جانبی</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/laptop.svg' %}" alt><span>الکترونیک</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/grocery.svg' %}" alt><span>خواربارفروشی و بازار</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/music.svg' %}" alt><span>موسیقی و صدا</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/furniture.svg' %}"
-                                                     alt><span>خانه و مبلمان</span></a></li>
-                                <li><a href="#"><img src="{% static 'img/icon/toy.svg' %}"
-                                                     alt><span>اسباب بازی و بازی های ویدیویی</span></a></li>
-                                <li><a href="#"><img src="{% static 'img/icon/gifts.svg' %}" alt><span>هدایا</span></a></li>
-                                <li><a href="#"><img src="{% static 'img/icon/mother.svg' %}" alt><span>کودکان و مادران</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/beauty.svg' %}"
-                                                     alt><span>سلامت و زیبایی</span></a></li>
-                                <li><a href="#"><img src="{% static 'img/icon/sports.svg' %}" alt><span>ورزش و فضای باز</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/garden.svg' %}" alt><span>خانه و باغ</span></a>
-                                </li>
-                                <li><a href="#"><img src="{% static 'img/icon/automotive.svg' %}"
-                                                     alt><span>خودرو</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="{% static 'img/icon/dress.svg' %}" alt>
-                                <span>مد و لوازم جانبی</span><i class="far fa-angle-left"></i>
-                            </a>
-                            <div class="sub-category-mega">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="category-single">
-                                            <a href="#" class="category-title">خرید کودکان</a>
-                                            <div class="category-img mb-3">
-                                                <img src="{% static 'img/category/01.jpg' %}" alt="#">
-                                            </div>
-                                            <div class="category-link">
-                                                <a href="#">اسباب‌بازی‌های کودکان</a>
-                                                <a href="#">شکل رنگ کودکان</a>
-                                                <a href="#">ماشین مسافرتی کودکان</a>
-                                                <a href="#">چادر کودکان</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="category-single">
-                                            <a href="#" class="category-title">خرید مردانه</a>
-                                            <div class="category-img mb-3">
-                                                <img src="{% static 'img/category/02.jpg' %}" alt="#">
-                                            </div>
-                                            <div class="category-link">
-                                                <a href="#">تماشا کنید</a>
-                                                <a href="#">هولد</a>
-                                                <a href="#">تی شرت</a>
-                                                <a href="#">شلوار رسمی</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="category-single">
-                                            <a href="#" class="category-title">خرید زنانه</a>
-                                            <div class="category-img mb-3">
-                                                <img src="{% static 'img/category/03.jpg' %}" alt="#">
-                                            </div>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>
+                    <div class="d-none d-lg-block col-lg-6 col-xl-5">
+                        <div class="header-middle-search">
+                            <form action="{% url 'shop:product-grid' %}">
+                                <div class="search-content">
+                                    <input type="text" name="q" class="form-control"
+                                        placeholder="در اینجا جستجو کنید...">
+                                    <button type="submit" class="search-btn"><i class="far fa-search"></i></button>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="{% static 'img/icon/laptop.svg' %}" alt>
-                                <span>الکترونیک</span><i class="far fa-angle-left"></i>
-                            </a>
-                            <div class="sub-category-mega">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس مرد</h6>
-                                            <div class="category-link">
-                                                <a href="#">اسباب‌بازی‌های کودکان</a>
-                                                <a href="#">شکل رنگ کودکان</a>
-                                                <a href="#">ماشین مسافرتی کودکان</a>
-                                                <a href="#">چادر کودکان</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لوازم جانبی</h6>
-                                            <div class="category-link">
-                                                <a href="#">تماشا کنید</a>
-                                                <a href="#">هولد</a>
-                                                <a href="#">تی شرت</a>
-                                                <a href="#">شلوار رسمی</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">کیف</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-img">
-                                            <a href="#"><img src="{% static 'img/category/04.jpg' %}" alt></a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس زنانه</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">کفش</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">کیف</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-img">
-                                            <a href="#"><img src="{% static 'img/category/05.jpg' %}" alt></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="{% static 'img/icon/grocery.svg' %}" alt>
-                                <span>خواربارفروشی و بازار</span><i class="far fa-angle-left"></i>
-                            </a>
-                            <div class="sub-category-mega">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس مرد</h6>
-                                            <div class="category-link">
-                                                <a href="#">اسباب‌بازی‌های کودکان</a>
-                                                <a href="#">شکل رنگ کودکان</a>
-                                                <a href="#">ماشین مسافرتی کودکان</a>
-                                                <a href="#">چادر کودکان</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لوازم جانبی</h6>
-                                            <div class="category-link">
-                                                <a href="#">تماشا کنید</a>
-                                                <a href="#">هولد</a>
-                                                <a href="#">تی شرت</a>
-                                                <a href="#">شلوار رسمی</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">کیف</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس زنانه</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس مرد</h6>
-                                            <div class="category-link">
-                                                <a href="#">اسباب‌بازی‌های کودکان</a>
-                                                <a href="#">شکل رنگ کودکان</a>
-                                                <a href="#">ماشین مسافرتی کودکان</a>
-                                                <a href="#">چادر کودکان</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لوازم جانبی</h6>
-                                            <div class="category-link">
-                                                <a href="#">تماشا کنید</a>
-                                                <a href="#">هولد</a>
-                                                <a href="#">تی شرت</a>
-                                                <a href="#">شلوار رسمی</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">کیف</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس زنانه</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#"><img src="{% static 'img/icon/music.svg' %}" alt><span>موسیقی و صدا</span></a></li>
-                        <li>
-                            <a href="#">
-                                <img src="{% static 'img/icon/furniture.svg' %}" alt>
-                                <span>خانه و مبلمان</span><i class="far fa-angle-left"></i>
-                            </a>
-                            <div class="sub-category-mega">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لباس مرد</h6>
-                                            <div class="category-link">
-                                                <a href="#">اسباب‌بازی‌های کودکان</a>
-                                                <a href="#">شکل رنگ کودکان</a>
-                                                <a href="#">ماشین مسافرتی کودکان</a>
-                                                <a href="#">چادر کودکان</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">لوازم جانبی</h6>
-                                            <div class="category-link">
-                                                <a href="#">تماشا کنید</a>
-                                                <a href="#">هولد</a>
-                                                <a href="#">تی شرت</a>
-                                                <a href="#">شلوار رسمی</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-single">
-                                            <h6 class="category-title-text">کیف</h6>
-                                            <div class="category-link">
-                                                <a href="#">پیراهن زنانه</a>
-                                                <a href="#">عینک آفتابی زنانه</a>
-                                                <a href="#">قورباغه خانم</a>
-                                                <a href="#">ساعت زنانه</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="category-img">
-                                            <a href="#"><img src="{% static 'img/category/04.jpg' %}" alt></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#"><img src="{% static 'img/icon/toy.svg' %}" alt><span>اسباب بازی و بازی های ویدئویی</span></a></li>
-                        <li><a href="#"><img src="{% static 'img/icon/gifts.svg' %}" alt><span>هدایا</span></a></li>
-                        <li><a href="#"><img src="{% static 'img/icon/mother.svg' %}" alt><span>کودکان و مادران</span></a></li>
-                        <li><a href="#"><img src="{% static 'img/icon/beauty.svg' %}" alt><span>سلامت و زیبایی</span></a></li>
-                        <li><a href="#"><img src="{% static 'img/icon/sports.svg' %}" alt><span>ورزش و فضای باز</span></a></li>
-                        <li><a href="#"><img src="{% static 'img/icon/garden.svg' %}" alt><span>خانه و باغ</span></a></li>
-                        <li><a href="#"><img src="{% static 'img/icon/automotive.svg' %}" alt><span>خودرو</span></a></li>
-                    </ul>
-                </div>
-                <div class="mobile-menu-right">
-                    <div class="search-btn">
-                        <button type="button" class="nav-right-link"><i class="far fa-search"></i></button>
-                        <div class="mobile-search-form">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="در اینجا جستجو کنید...">
-                                <button type="submit"><i class="far fa-search"></i></button>
                             </form>
                         </div>
                     </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-mobile-icon"><i class="far fa-bars"></i></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="main_nav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item "><a class="nav-link {% if request.resolver_match.view_name == 'website:index' %} active {% endif %}" href="{% url 'website:index' %}">صفحه اصلی</a></li>
-                        <li class="nav-item "><a class="nav-link  {% if request.resolver_match.view_name == 'shop:product-grid' %} active {% endif %}" href="{% url 'shop:product-grid' %}">لیست محصولات</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">وبلاگ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">ارتباط با ما</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html"> درباره ما</a></li>
-                    </ul>
-                   
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+                    <div class="col-7 col-lg-3 col-xl-4">
+                        <div class="header-middle-right">
+                            <ul class="header-middle-list">
 
+                                {% if request.user.is_authenticated %}
+                                <li>
+                                    <a href="{% url 'dashboard:home' %}" class="list-item"><i
+                                            class="far fa-user-circle"></i>
+                                        {% if request.user.user_profile.get_fullname %}
+                                        {{ request.user.user_profile.get_fullname }}
+                                        {% elif request.user.email %}
+                                        {{ request.user.email }}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li><a href="{% url 'accounts:login' %}" class="list-item"><i
+                                            class="far fa-user-circle"></i>ورود</a></li>
+                                {% endif %}
 
+                                <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span> فهرست
+                                        علاقمندی ها</a>
+                                </li>
+                                <li><a href="{% url 'cart:cart-summary' %}" id="total-cart-item-count"
+                                        class="list-item"><i
+                                            class="far fa-shopping-bag"></i><span>{{ cart.get_total_quantity }}</span>مشاهده
+                                        سبد خرید</a>
+                                </li>
 
-
-
-<main class="main"> {% block content %}     {% endblock content %} </main>
-
-
-
-
-<footer class="footer-area">
-    <div class="footer-widget">
-        <div class="container">
-            <div class="row footer-widget-wrapper pt-100 pb-70">
-                <div class="col-md-6 col-lg-4">
-                    <div class="footer-widget-box about-us">
-                        <a href="#" class="footer-logo">
-                            <img src="{% static 'img/logo/logo-light.png' %}" alt>
-                        </a>
-                        <p class="mb-1">
-                            ما انواع مختلفی از معابر در دسترس داریم، اما اکثریت آنها دچار تغییر شده اند
-                            برخی از آنها کلمات طنز را حتی کمی باورپذیر تزریق می کنند.
-                        </p>
-                        <div class="footer-download mt-20 mb-30">
-                            <h5>برنامه موبایل ما را دریافت کنید</h5>
-                            <div class="footer-download-btn">
-                                <a href="#">
-                                    <i class="fab fa-google-play"></i>
-                                    <div class="download-btn-info">
-                                        <span>آن را روشن کنید</span>
-                                        <h6>گوگل پلی</h6>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <i class="fab fa-app-store"></i>
-                                    <div class="download-btn-info">
-                                        <span>آن را روشن کنید</span>
-                                        <h6>فروشگاه برنامه</h6>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-2">
-                    <div class="footer-widget-box list">
-                        <h4 class="footer-widget-title">مرکز پشتیبانی</h4>
-                        <ul class="footer-list">
-                            <li><a href="#">سؤالات متداول</a></li>
-                            <li><a href="#">نحوه خرید</a></li>
-                            <li><a href="#">مرکز پشتیبانی</a></li>
-                            <li><a href="#">سفارش خود را پیگیری کنید</a></li>
-                            <li><a href="#">خط مشی بازگشت</a></li>
-                            <li><a href="#">شرکت‌های وابسته ما</a></li>
-                            <li><a href="#">نقشه سایت</a></li>
-                        </ul>
-                    </div>
-                </div>
-                    </div>
-                </div>
-
-                    <div class="footer-widget-box list">
-                        <h4 class="footer-widget-title">تماس بگیرید</h4>
-                        <p class="mb-2">از امروز با ما در تماس باشید. ما آماده کمک به شما هستیم.</p>
-                        <div class="footer-call mb-2">
-                            <div class="footer-call-icon">
-                                <i class="fal fa-headset"></i>
-                            </div>
-                            <div class="footer-call-info">
-                                <p>24 ساعته به کمک نیاز دارید؟</p>
-                                <a href="tel:+21236547898">09555555555</a>
-                            </div>
-                        </div>
-                        <ul class="footer-contact">
-                            <li><i class="far fa-map-marker-alt"></i>نیویورک ، خیابان میلفورد</li>
-                            <li><a href="https://theme-script.ir/cdn-cgi/l/email-protection#dbb2b5bdb49bbea3bab6abb7bef5b8b4b6"><i
-                                    class="far fa-envelope"></i><span class="__cf_email__"
-                                                                      data-cfemail="0b62656d644b6e736a667b676e25686466">ad@info.com</span></a>
-                            </li>
-                            <li><i class="far fa-clock"></i>دوشنبه تا جمعه (9:00 صبح تا 8:00 عصر)</li>
-                        </ul>
-
-                </div>
-               
-                    </div>
-                </div>
-
-    <div class="copyright">
-        <div class="container">
-            <div class="copyright-wrap">
-                <div class="row">
-                    <div class="col-12 col-lg-6 align-self-center">
-                        <p class="copyright-text">
-                            © حق چاپ <span id="date">2024</span> <a href="#"> گومارت </a> کلیه حقوق محفوظ است.
-                        </p>
-                    </div>
-                    <div class="col-12 col-lg-6 align-self-center">
-                        <div class="footer-social">
-                            <span>ما را دنبال کنید:</span>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'js/modernizr.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
-<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'js/jquery.appear.min.js' %}"></script>
-<script src="{% static 'js/jquery.easing.min.js' %}"></script>
-<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'js/counter-up.js' %}"></script>
-<script src="{% static 'js/jquery-ui.min.js' %}"></script>
-<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
-<script src="{% static 'js/countdown.min.js' %}"></script>
-<script src="{% static 'js/wow.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-<script src="{% static 'vendor/toastify/toastify.js' %}"></script>
-<script src="{% static 'js/flex-slider.js' %}"></script>
-<script src="{% static 'js/castuom.js' %}"></script>
-<script>
-    function addToCart(product_id){
-    console.log(product_id)
-    $.ajax({
-        url: "{% url 'cart:session-add-product' %}",
-        method: 'POST',
-        data:{
-            product_id:product_id,
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        },
-        success: function(response){
-            $("#total-cart-item-count").html(response.total_quantity)
-            console.log(response);
-        },
-        error: function(jqXHR,textStatus,errorThrown){
-            console.log(errorThrown)
+
+        <div class="main-navigation">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container position-relative">
+                    <a class="navbar-brand" href="index-2.html">
+                        <img src="{% static 'img/logo/logo.png' %}" class="logo-scrolled" alt="logo">
+                    </a>
+                    <div class="category-all">
+                        <button class="category-btn" type="button">
+                            <i class="far fa-grid-2-plus"></i><span>همه دسته ها</span>
+                        </button>
+                        <ul class="main-category hide-category">
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'img/icon/shopping-bag.svg' %}" alt>
+                                    <span>موارد جدید</span><i class="far fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-category">
+                                    <li><a href="#"><img src="{% static 'img/icon/dress.svg' %}" alt><span>لوازم
+                                                جانبی</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/laptop.svg' %}"
+                                                alt><span>الکترونیک</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/grocery.svg' %}"
+                                                alt><span>خواربارفروشی و بازار</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/music.svg' %}" alt><span>موسیقی و
+                                                صدا</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/furniture.svg' %}" alt><span>خانه و
+                                                مبلمان</span></a></li>
+                                    <li><a href="#"><img src="{% static 'img/icon/toy.svg' %}" alt><span>اسباب بازی و
+                                                بازی های ویدیویی</span></a></li>
+                                    <li><a href="#"><img src="{% static 'img/icon/gifts.svg' %}"
+                                                alt><span>هدایا</span></a></li>
+                                    <li><a href="#"><img src="{% static 'img/icon/mother.svg' %}" alt><span>کودکان و
+                                                مادران</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/beauty.svg' %}" alt><span>سلامت و
+                                                زیبایی</span></a></li>
+                                    <li><a href="#"><img src="{% static 'img/icon/sports.svg' %}" alt><span>ورزش و فضای
+                                                باز</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/garden.svg' %}" alt><span>خانه و
+                                                باغ</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="{% static 'img/icon/automotive.svg' %}"
+                                                alt><span>خودرو</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'img/icon/dress.svg' %}" alt>
+                                    <span>مد و لوازم جانبی</span><i class="far fa-angle-left"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">خرید کودکان</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="{% static 'img/category/01.jpg' %}" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">اسباب‌بازی‌های کودکان</a>
+                                                    <a href="#">شکل رنگ کودکان</a>
+                                                    <a href="#">ماشین مسافرتی کودکان</a>
+                                                    <a href="#">چادر کودکان</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">خرید مردانه</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="{% static 'img/category/02.jpg' %}" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">تماشا کنید</a>
+                                                    <a href="#">هولد</a>
+                                                    <a href="#">تی شرت</a>
+                                                    <a href="#">شلوار رسمی</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">خرید زنانه</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="{% static 'img/category/03.jpg' %}" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'img/icon/laptop.svg' %}" alt>
+                                    <span>الکترونیک</span><i class="far fa-angle-left"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس مرد</h6>
+                                                <div class="category-link">
+                                                    <a href="#">اسباب‌بازی‌های کودکان</a>
+                                                    <a href="#">شکل رنگ کودکان</a>
+                                                    <a href="#">ماشین مسافرتی کودکان</a>
+                                                    <a href="#">چادر کودکان</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لوازم جانبی</h6>
+                                                <div class="category-link">
+                                                    <a href="#">تماشا کنید</a>
+                                                    <a href="#">هولد</a>
+                                                    <a href="#">تی شرت</a>
+                                                    <a href="#">شلوار رسمی</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">کیف</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="{% static 'img/category/04.jpg' %}" alt></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس زنانه</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">کفش</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">کیف</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="{% static 'img/category/05.jpg' %}" alt></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'img/icon/grocery.svg' %}" alt>
+                                    <span>خواربارفروشی و بازار</span><i class="far fa-angle-left"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس مرد</h6>
+                                                <div class="category-link">
+                                                    <a href="#">اسباب‌بازی‌های کودکان</a>
+                                                    <a href="#">شکل رنگ کودکان</a>
+                                                    <a href="#">ماشین مسافرتی کودکان</a>
+                                                    <a href="#">چادر کودکان</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لوازم جانبی</h6>
+                                                <div class="category-link">
+                                                    <a href="#">تماشا کنید</a>
+                                                    <a href="#">هولد</a>
+                                                    <a href="#">تی شرت</a>
+                                                    <a href="#">شلوار رسمی</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">کیف</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس زنانه</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس مرد</h6>
+                                                <div class="category-link">
+                                                    <a href="#">اسباب‌بازی‌های کودکان</a>
+                                                    <a href="#">شکل رنگ کودکان</a>
+                                                    <a href="#">ماشین مسافرتی کودکان</a>
+                                                    <a href="#">چادر کودکان</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لوازم جانبی</h6>
+                                                <div class="category-link">
+                                                    <a href="#">تماشا کنید</a>
+                                                    <a href="#">هولد</a>
+                                                    <a href="#">تی شرت</a>
+                                                    <a href="#">شلوار رسمی</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">کیف</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس زنانه</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#"><img src="{% static 'img/icon/music.svg' %}" alt><span>موسیقی و
+                                        صدا</span></a></li>
+                            <li>
+                                <a href="#">
+                                    <img src="{% static 'img/icon/furniture.svg' %}" alt>
+                                    <span>خانه و مبلمان</span><i class="far fa-angle-left"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لباس مرد</h6>
+                                                <div class="category-link">
+                                                    <a href="#">اسباب‌بازی‌های کودکان</a>
+                                                    <a href="#">شکل رنگ کودکان</a>
+                                                    <a href="#">ماشین مسافرتی کودکان</a>
+                                                    <a href="#">چادر کودکان</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">لوازم جانبی</h6>
+                                                <div class="category-link">
+                                                    <a href="#">تماشا کنید</a>
+                                                    <a href="#">هولد</a>
+                                                    <a href="#">تی شرت</a>
+                                                    <a href="#">شلوار رسمی</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">کیف</h6>
+                                                <div class="category-link">
+                                                    <a href="#">پیراهن زنانه</a>
+                                                    <a href="#">عینک آفتابی زنانه</a>
+                                                    <a href="#">قورباغه خانم</a>
+                                                    <a href="#">ساعت زنانه</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="{% static 'img/category/04.jpg' %}" alt></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#"><img src="{% static 'img/icon/toy.svg' %}" alt><span>اسباب بازی و بازی های
+                                        ویدئویی</span></a></li>
+                            <li><a href="#"><img src="{% static 'img/icon/gifts.svg' %}" alt><span>هدایا</span></a></li>
+                            <li><a href="#"><img src="{% static 'img/icon/mother.svg' %}" alt><span>کودکان و
+                                        مادران</span></a></li>
+                            <li><a href="#"><img src="{% static 'img/icon/beauty.svg' %}" alt><span>سلامت و
+                                        زیبایی</span></a></li>
+                            <li><a href="#"><img src="{% static 'img/icon/sports.svg' %}" alt><span>ورزش و فضای
+                                        باز</span></a></li>
+                            <li><a href="#"><img src="{% static 'img/icon/garden.svg' %}" alt><span>خانه و
+                                        باغ</span></a></li>
+                            <li><a href="#"><img src="{% static 'img/icon/automotive.svg' %}" alt><span>خودرو</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mobile-menu-right">
+                        <div class="search-btn">
+                            <button type="button" class="nav-right-link"><i class="far fa-search"></i></button>
+                            <div class="mobile-search-form">
+                                <form action="#">
+                                    <input type="text" class="form-control" placeholder="در اینجا جستجو کنید...">
+                                    <button type="submit"><i class="far fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-mobile-icon"><i class="far fa-bars"></i></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main_nav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item "><a
+                                    class="nav-link {% if request.resolver_match.view_name == 'website:index' %} active {% endif %}"
+                                    href="{% url 'website:index' %}">صفحه اصلی</a></li>
+                            <li class="nav-item "><a
+                                    class="nav-link  {% if request.resolver_match.view_name == 'shop:product-grid' %} active {% endif %}"
+                                    href="{% url 'shop:product-grid' %}">لیست محصولات</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">وبلاگ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">ارتباط با ما</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html"> درباره ما</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+        </div>
+        </nav>
+        </div>
+    </header>
+
+    <main class="main"> {% block content %} {% endblock content %} </main>
+
+    <footer class="footer-area">
+        <div class="footer-widget">
+            <div class="container">
+                <div class="row footer-widget-wrapper pt-100 pb-70">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="footer-widget-box about-us">
+                            <a href="#" class="footer-logo">
+                                <img src="{% static 'img/logo/logo-light.png' %}" alt>
+                            </a>
+                            <p class="mb-1">
+                                ما انواع مختلفی از معابر در دسترس داریم، اما اکثریت آنها دچار تغییر شده اند
+                                برخی از آنها کلمات طنز را حتی کمی باورپذیر تزریق می کنند.
+                            </p>
+                            <div class="footer-download mt-20 mb-30">
+                                <h5>برنامه موبایل ما را دریافت کنید</h5>
+                                <div class="footer-download-btn">
+                                    <a href="#">
+                                        <i class="fab fa-google-play"></i>
+                                        <div class="download-btn-info">
+                                            <span>آن را روشن کنید</span>
+                                            <h6>گوگل پلی</h6>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-app-store"></i>
+                                        <div class="download-btn-info">
+                                            <span>آن را روشن کنید</span>
+                                            <h6>فروشگاه برنامه</h6>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">مرکز پشتیبانی</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">سؤالات متداول</a></li>
+                                <li><a href="#">نحوه خرید</a></li>
+                                <li><a href="#">مرکز پشتیبانی</a></li>
+                                <li><a href="#">سفارش خود را پیگیری کنید</a></li>
+                                <li><a href="#">خط مشی بازگشت</a></li>
+                                <li><a href="#">شرکت‌های وابسته ما</a></li>
+                                <li><a href="#">نقشه سایت</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-widget-box list">
+                <h4 class="footer-widget-title">تماس بگیرید</h4>
+                <p class="mb-2">از امروز با ما در تماس باشید. ما آماده کمک به شما هستیم.</p>
+                <div class="footer-call mb-2">
+                    <div class="footer-call-icon">
+                        <i class="fal fa-headset"></i>
+                    </div>
+                    <div class="footer-call-info">
+                        <p>24 ساعته به کمک نیاز دارید؟</p>
+                        <a href="tel:+21236547898">09555555555</a>
+                    </div>
+                </div>
+                <ul class="footer-contact">
+                    <li><i class="far fa-map-marker-alt"></i>نیویورک ، خیابان میلفورد</li>
+                    <li><a href="https://theme-script.ir/cdn-cgi/l/email-protection#dbb2b5bdb49bbea3bab6abb7bef5b8b4b6"><i
+                                class="far fa-envelope"></i><span class="__cf_email__"
+                                data-cfemail="0b62656d644b6e736a667b676e25686466">ad@info.com</span></a>
+                    </li>
+                    <li><i class="far fa-clock"></i>دوشنبه تا جمعه (9:00 صبح تا 8:00 عصر)</li>
+                </ul>
+
+            </div>
+
+        </div>
+        </div>
+
+        <div class="copyright">
+            <div class="container">
+                <div class="copyright-wrap">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 align-self-center">
+                            <p class="copyright-text">
+                                © حق چاپ <span id="date">2024</span> <a href="#"> گومارت </a> کلیه حقوق محفوظ است.
+                            </p>
+                        </div>
+                        <div class="col-12 col-lg-6 align-self-center">
+                            <div class="footer-social">
+                                <span>ما را دنبال کنید:</span>
+                                <a href="#"><i class="fab fa-telegram"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/modernizr.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.appear.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/counter-up.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/countdown.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+    <script src="{% static 'js/flex-slider.js' %}"></script>
+    <script src="{% static 'js/castuom.js' %}"></script>
+
+
+
+    <script>
+        function addToCart(product_id) {
+            console.log(product_id)
+            $.ajax({
+                url: "{% url 'cart:session-add-product' %}",
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    $("#total-cart-item-count").html(response.total_quantity)
+                    console.log(response);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown)
+                }
+            });
         }
-    });
-    }
-</script>
 
-<script>
-function formatPriceInToman(element) {
-  let rawPrice = parseFloat(element.innerText);
-  let formatter = new Intl.NumberFormat("fa-IR");
-  let formattedPrice = formatter.format(rawPrice);
-  element.innerText = `${formattedPrice} تومان`;
-}
-</script>
+        function addTOwishlist(element,product_id) {
+            console.log(product_id)
+            $.ajax({
+                url: "{% url 'shop:add-or-remove-wishlist' %}",
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    console.log(response);
+                     Toastify({
+                    text: response.message,
+                    className: `info`,
+                    style: {
+                        background: "blue",
+                    }
+                }).showToast();
+                $(element).toggleClass('is-active')
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown)
+                }
+            });
+        }
+    </script>
 
+    <script>
+        function formatPriceInToman(element) {
+            let rawPrice = parseFloat(element.innerText);
+            let formatter = new Intl.NumberFormat("fa-IR");
+            let formattedPrice = formatter.format(rawPrice);
+            element.innerText = `${formattedPrice} تومان`;
+        }
+    </script>
 
 </body>
-{% include "massages.html" %} 
+{% include "massages.html" %}
+
 </html>
 
-{% block extra_js %}   {% endblock extra_js %}
+{% block extra_js %} {% endblock extra_js %}
 
-
-{% block extra_js_non_compress %}   {% endblock extra_js_non_compress %}
+{% block extra_js_non_compress %} {% endblock extra_js_non_compress %}

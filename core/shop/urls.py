@@ -5,6 +5,6 @@ app_name = 'shop'
 
 urlpatterns = [
     path('product/grid/',views.ShopProductGrid.as_view(),name="product-grid"),
-    re_path(r'^product/(?P<slug>[-\w\u0600-\u06FF]+)/detail/$',views.ShopProductDetailView.as_view(),name='product-detail')
-
+    re_path(r'^product/(?P<slug>[-\w\u0600-\u06FF]+)/detail/$',views.ShopProductDetailView.as_view(),name='product-detail'),
+    path("add-or-remove-wishlist/",views.AddOrRemoveWishListView.as_view(),name="add-or-remove-wishlist")
 ]
