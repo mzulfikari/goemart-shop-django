@@ -1,0 +1,92 @@
+{% extends "dashboard/admin/base.html" %}
+{% load static %}
+{% block title %}ویرایش محصول{% endblock title %}
+
+{% block extra_css %}
+<style>
+    .small-primary-button {
+        padding: 3px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 10px;
+        border-radius: 5px;
+    }
+
+    .small-primary-button:hover,
+    .small-primary-button:focus {
+        background-color: #0056b3;
+    }
+
+    .theme-btn {
+        transition: 0.3s ease;
+    }
+
+    .theme-btn:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+    }
+
+    .delete-btn {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+        color: #fff !important;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333 !important;
+        border-color: #c82333 !important;
+        color: #fff !important;
+    }
+</style>
+{% endblock %}
+
+{% block header %}
+<div class="site-breadcrumb">
+    <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
+    <div class="container">
+        <div class="site-breadcrumb-wrap">
+            <h4 class="breadcrumb-title">داشبورد مدیر</h4>
+            <ul class="breadcrumb-menu">
+                <li><a href="{% url 'website:index' %}"><i class="far fa-home"></i> صفحه اصلی</a></li>
+                <li class="active">ویرایش محصول</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-9">
+    <div class="user-wrapper">
+        <div class="user-card">
+            <div class="user-card-header">
+                <h4 class="user-card-title">ویرایش نظر</h4>
+                <a href="{% url 'dashboard:admin:review-list' %}" class="theme-btn"><span class="far fa-arrow-right"></span>همه
+                    نظرات</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="user-form">
+                    <h6 class="mb-20">اطلاعات پایه</h6>
+                    <form action="." method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{form.as_p}}
+                                </div>
+                                <button type="submit" class="theme-btn">
+                                    <span class="far fa-save"></span> ذخیره تغییرات
+                                </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock content %}

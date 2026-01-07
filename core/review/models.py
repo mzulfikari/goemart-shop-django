@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from shop.models import ProductModel
 from django.core.validators import MaxValueValidator,MinValueValidator
 from django.db.models.signals import post_save
@@ -29,7 +30,18 @@ class ReviewModel(models.Model):
     def __str__(self):
         return f"{self.user} - {self.product}"
     
+    def get_status(self):
+        return{
+            "id":self.status,
+            "title":ReviewStatusType(self.status).name,
+            "label":ReviewStatusType(self.status).label,
+        }
+        
     
 @receiver(post_save,sender=ReviewModel)
 def calculate_ave_review(sender,instance,created,**kwargs):
-    pass
+    if instance.status == ReviewStatusType.accepted.value:
+        product = instance.product
+        average_rating = ReviewModel.objects.filter(product=product,status=ReviewStatusType.accepted).aggregate(Avg('rate'))['rate__avg']
+        product.avg__rate = round(average_rating,1)
+        product.save()

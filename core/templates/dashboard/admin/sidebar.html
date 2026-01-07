@@ -34,11 +34,11 @@
 
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:order-list' %} active {% endif %}"
                                     href="{% url 'dashboard:admin:order-list' %}"><i class="far fa-shopping-bag"></i>
-                                    همه سفارش‌ها <span class="badge badge-danger">02</span></a></li>
-
-                            <li><a href="vendor-notification.html"><i class="far fa-bell"></i> اعلان <span
-                                        class="badge badge-danger">02</span></a></li>
-
+                                    مدیریت سفارش ها</a></li>
+                            <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:review-list' %} active {% endif %}"
+                                    href="{% url 'dashboard:admin:review-list' %}"><i <i
+                                        class="fa-regular fa-message"></i></i>
+                                    مدیریت نظرات</a></li>
                             <li><a class="{% if request.resolver_match.view_name == 'dashboard:admin:security-edit' %} active {% endif %}"
                                     href="{% url 'dashboard:admin:security-edit' %}"><i class="fa-solid fa-key"></i>
                                     تغییر رمز عبور</a></li>
