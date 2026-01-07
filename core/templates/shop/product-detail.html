@@ -1,121 +1,116 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load shop_tags %}
-{% block title %}  جزئیات محصول {% endblock title %}
+{% block title %} جزئیات محصول {% endblock title %}
 
 {% block content %}
 
- <div class="site-breadcrumb">
-        <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
-        <div class="container">
-            <div class="site-breadcrumb-wrap">
-                <h4 class="breadcrumb-title">جزئیات محصول</h4>
-                <ul class="breadcrumb-menu">
-                    <li><a href="{% url 'website:index' %}"><i class="far fa-home"></i> صفحه اصلی</a></li>
-                </ul>
-            </div>
+<div class="site-breadcrumb">
+    <div class="site-breadcrumb-bg" style="background: url({% static 'img/breadcrumb/01.jpg' %})"></div>
+    <div class="container">
+        <div class="site-breadcrumb-wrap">
+            <h4 class="breadcrumb-title">جزئیات محصول</h4>
+            <ul class="breadcrumb-menu">
+                <li><a href="{% url 'website:index' %}"><i class="far fa-home"></i> صفحه اصلی</a></li>
+            </ul>
         </div>
     </div>
+</div>
 
-
-    <div class="shop-single py-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9 col-lg-6 col-xxl-5">
-                    <div class="shop-single-gallery" dir="ltr">
-                        <div class="flexslider-thumbnails">
-                            <ul class="slides">    
-                                <img src="{{ object.image.url }}" alt="#">
-                            </ul>
-                        </div>
+<div class="shop-single py-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-lg-6 col-xxl-5">
+                <div class="shop-single-gallery" dir="ltr">
+                    <div class="flexslider-thumbnails">
+                        <ul class="slides">
+                            <img src="{{ object.image.url }}" alt="#">
+                        </ul>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-6 col-xxl-6">
-                    <div class="shop-single-info">
-                        <h4 class="shop-single-title"> {{ object.title }}</h4>
-                        <div class="shop-single-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="rating-count"> (4 نظر مشتری)</span>
-                        </div>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xxl-6">
+                <div class="shop-single-info">
+                    <h4 class="shop-single-title"> {{ object.title }}</h4>
+                    <div class="shop-single-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count"> (4 نظر مشتری)</span>
+                    </div>
 
+                    {% if object.is_discounted %}
+                    <div class="shop-single-price">
+                        <del>{{object.get_show_raw_price}}تومان</del>
+                        <span class="amount">{{object.get_show_price}}تومان</span>
+                        {% comment %} <span class="discount-percentage">30% تخفیف</span> {% endcomment %}
+                    </div>
+                    {% else %}
+                    <div class="shop-single-price">
+                        <span class="amount">{{object.get_show_price}}تومان</span>
+                    </div>
+                    {% endif %}
 
+                    {% if  brief_description %}
+                    <p class="mb-3">
+                        {{object.brief_description}}
+                    </p>
+                    {% endif %}
 
-                        {% if object.is_discounted %}
-                        <div class="shop-single-price">
-                            <del>{{object.get_show_raw_price}}تومان</del>
-                            <span class="amount">{{object.get_show_price}}تومان</span>
-                            {% comment %} <span class="discount-percentage">30% تخفیف</span> {% endcomment %}
-                        </div>
-                        {% else %}
-                         <div class="shop-single-price">
-                           <span class="amount">{{object.get_show_price}}تومان</span>
-                        </div>
-                        {% endif %}
-
-
-                        {% if  brief_description %}
-                        <p class="mb-3">
-                            {{object.brief_description}}
-                        </p>
-                        {% endif %}
-
-
-                        <div class="shop-single-cs">
-                            <div class="row">
-                                <div class="col-md-3 col-lg-4 col-xl-3">
-                                    <div class="shop-single-size">
-                                        <h6>مقدار</h6>
-                                        <div class="shop-cart-qty">
-                                            <button class="minus-btn"><i class="fal fa-minus"></i></button>
-                                            <input class="quantity" type="text" value="1" disabled>
-                                            <button class="plus-btn"><i class="fal fa-plus"></i></button>
-                                        </div>
+                    <div class="shop-single-cs">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-4 col-xl-3">
+                                <div class="shop-single-size">
+                                    <h6>مقدار</h6>
+                                    <div class="shop-cart-qty">
+                                        <button class="minus-btn"><i class="fal fa-minus"></i></button>
+                                        <input class="quantity" type="text" value="1" disabled>
+                                        <button class="plus-btn"><i class="fal fa-plus"></i></button>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-lg-4 col-xl-3">
-                                    <div class="shop-single-size">
-                                        <h6>اندازه</h6>
-                                        <select class="select">
-                                            <option value> انتخاب کنید</option>
-                                            <option value="1">بسیار کوچک</option>
-                                            <option value="2">کوچک</option>
-                                            <option value="3">متوسط</option>
-                                            <option value="4">بسیار بزرگ</option>
-                                        </select>
-                                    </div>
-                                </div>
-                               
                             </div>
+                            <div class="col-md-3 col-lg-4 col-xl-3">
+                                <div class="shop-single-size">
+                                    <h6>اندازه</h6>
+                                    <select class="select">
+                                        <option value> انتخاب کنید</option>
+                                        <option value="1">بسیار کوچک</option>
+                                        <option value="2">کوچک</option>
+                                        <option value="3">متوسط</option>
+                                        <option value="4">بسیار بزرگ</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="shop-single-sortinfo">
-                            <ul>
-                                <li> موجودی: <span>موجود</span></li>
-                                <li>کد محصول: <span>676TYWV</span></li>
-                                <li>دسته: <span>الکترونیک</span></li>
-                                <li>فروش توسط: <a href="#">فروشگاه سریع</a></li>
-                                <li>برچسب‌ها: <a href="#">هدفون</a>، <a href="#">بلوتوث</a>، <a href="#">مدرن</a>، <a
-                                        href="#">وبلاگ</a></li>
-                            </ul>
-                        </div>
-                        <div class="shop-single-action">
-                            <div class="row align-items-center">
-                                <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <div class="shop-single-btn">
-                                        <a href="#" class="theme-btn"><span class="far fa-shopping-bag"></span>افزودن به
-                                            سبد خرید</a>
-                                         {% if request.user.is_authenticated %}
-                                            <button type="button"
-                                                class="wishlist-btn {% if is_wished %} is-active {% endif %}"
-                                                title="افزودن به علاقه‌مندی‌ها" onclick="addTOwishlist(this,`{{object.id}}`)" aria-label="افزودن به علاقه‌مندی‌ها">
-                                                <span class="icon">
-                                                    <i class="far fa-heart"></i>
-                                                </span>
-                                            </button>
-                                            {% endif %}
+                    </div>
+                    <div class="shop-single-sortinfo">
+                        <ul>
+                            <li> موجودی: <span>موجود</span></li>
+                            <li>کد محصول: <span>676TYWV</span></li>
+                            <li>دسته: <span>الکترونیک</span></li>
+                            <li>فروش توسط: <a href="#">فروشگاه سریع</a></li>
+                            <li>برچسب‌ها: <a href="#">هدفون</a>، <a href="#">بلوتوث</a>، <a href="#">مدرن</a>، <a
+                                    href="#">وبلاگ</a></li>
+                        </ul>
+                    </div>
+                    <div class="shop-single-action">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 col-lg-12 col-xl-6">
+                                <div class="shop-single-btn">
+                                    <a href="#" class="theme-btn"><span class="far fa-shopping-bag"></span>افزودن به
+                                        سبد خرید</a>
+                                    {% if request.user.is_authenticated %}
+                                    <button type="button" class="wishlist-btn {% if is_wished %} is-active {% endif %}"
+                                        title="افزودن به علاقه‌مندی‌ها" onclick="addTOwishlist(this,`{{object.id}}`)"
+                                        aria-label="افزودن به علاقه‌مندی‌ها">
+                                        <span class="icon">
+                                            <i class="far fa-heart"></i>
+                                        </span>
+                                    </button>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -127,11 +122,10 @@
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-tab1" data-bs-toggle="tab" data-bs-target="#tab1"
-                                type="button" role="tab" aria-controls="tab1" aria-selected="true">توضیحات
+                            type="button" role="tab" aria-controls="tab1" aria-selected="true">توضیحات
                         </button>
                         <button class="nav-link" id="nav-tab3" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
-                                role="tab" aria-controls="tab3" aria-selected="false">بررسی ها
-                            (05)
+                            role="tab" aria-controls="tab3" aria-selected="false">دیدگاه ها
                         </button>
                     </div>
                 </nav>
@@ -203,84 +197,36 @@
                     <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="nav-tab3">
                         <div class="shop-single-review">
                             <div class="blog-comments">
-                                <h5>نظرات (05)</h5>
+                                <h5>نظرات</h5>
+
+                                {% for review in reviews %}
                                 <div class="blog-comments-wrapper">
                                     <div class="blog-comments-single mt-0">
-                                        <img src="{% static 'img/blog/com-1.jpg' %}" alt="thumb">
+                                        <img src="{{review.user.user_profile.image.url}}" style="width: 50px; height: 50px; object-fit: cover;" alt="ایمیل">
                                         <div class="blog-comments-content">
-                                            <h5>سینکلر دنولا</h5>
-                                            <span><i class="far fa-clock"></i> 31 مهر 1402</span>
-                                            <p>لورم اپسیوم به سادگی متن ساختگی چاپ و حروفچینی است
-                                                صنعت. لورم اپسیوم متن ساختگی استاندارد این صنعت بوده است
-                                                از زمانی که یک چاپگر ناشناس یک گالری از نوع را برداشت و آن را درهم ریخت
-                                                برای ساختن یک کتاب نمونه نوع این نه تنها پنج قرن زنده مانده است
-                                                بلکه حروفچینی الکترونیکی جهشی اساساً باقی مانده است
-                                                لورم اپسیوم به سادگی متن ساختگی چاپ و حروفچینی است
-                                                صنعت. لورم اپسیوم متن ساختگی استاندارد این صنعت بوده است
-                                                از زمانی که یک چاپگر ناشناس یک گالری از نوع را برداشت و آن را درهم ریخت
-                                                اپسیوم.</p>
-                                            <a href="#"><i class="far fa-reply"></i> پاسخ</a>
+                                            <h5>{{review.user.user_profile.get_fullname}}</h5>
+                                            <span><i class="far fa-clock"></i>{{review.created_date|date:"Y-m-d h:i"}}</span>
+                                            <p>{{review.description}}</p>
+                                            
+                                           
                                             <div class="review-rating">
+                                                {% for i in "12345" %}
+                                                    {% if i|add:0 <= review.rate %}
                                                 <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
+                                                    {% else %}
+                                                <i class="fal fa-star"></i>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="blog-comments-single ms-md-5">
-                                        <img src="{% static 'img/blog/com-2.jpg' %}" alt="thumb">
-                                        <div class="blog-comments-content">
-                                            <h5>دانیل ولمن</h5>
-                                            <span><i class="far fa-clock"></i> 31 مهر 1402</span>
-                                            <p>لورم اپسیوم به سادگی متن ساختگی چاپ و حروفچینی است
-                                                صنعت. لورم اپسیوم متن ساختگی استاندارد این صنعت بوده است
-                                                از زمانی که یک چاپگر ناشناس یک گالری از نوع را برداشت و آن را درهم ریخت
-                                                برای ساختن یک کتاب نمونه نوع این نه تنها پنج قرن زنده مانده است
-                                                بلکه حروفچینی الکترونیکی جهشی اساساً باقی مانده است
-                                                لورم اپسیوم به سادگی متن ساختگی چاپ و حروفچینی است
-                                                صنعت. لورم اپسیوم متن ساختگی استاندارد این صنعت بوده است
-                                                از زمانی که یک چاپگر ناشناس یک گالری از نوع را برداشت و آن را درهم ریخت
-                                                اپسیوم.</p>
-                                            <a href="#"><i class="far fa-reply"></i> پاسخ</a>
-                                            <div class="review-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="blog-comments-single">
-                                        <img src="{% static 'img/blog/com-3.jpg' %}" alt="thumb">
-                                        <div class="blog-comments-content">
-                                            <h5>کنت ایوانز</h5>
-                                            <span><i class="far fa-clock"></i> 31 مهر 1402</span>
-                                            <p> لورم اپسیوم به ساده متن ساختگی چاپ و حروفچینی است
-                                                صنعت لورم اپسیوم متن ساختگی استاندارد این صنعت بوده است
-                                                زمانی که یک چاپگر ناشناس یک گالری از نوعی را برداشت و آن را درهم ریخت
-                                                برای ساختن یک کتاب نمونه نوع این نه تنها پنج قرن زنده مانده است
-                                                بلکه حروفچینی الکترونیکی جهشی اساساً باقی مانده است
-                                                لورم اپسیوم به ساده متن ساختگی چاپ و حروفچینی است
-                                                صنعت لورم اپسیوم متن ساختگی استاندارد این صنعت بوده است
-                                                زمانی که یک چاپگر ناشناس یک گالری از نوعی را برداشت و آن را درهم ریخت
-                                                اپسیوم.</p>
-                                            <a href="#"><i class="far fa-reply"></i> پاسخ</a>
-                                            <div class="review-rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {% endfor %}
+
                                 <div class="blog-comments-form">
                                     <h4 class="mb-4">نظر بدهید</h4>
-                                    <form action="#">
+                                    <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product" value="{{ object.id }}">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group review-rating">
@@ -294,52 +240,39 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="نام شما*">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control" placeholder="ایمیل شما*">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="موضوع شما*">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <select class="form-control form-select">
-                                                        <option value>رتبه شما</option>
-                                                        <option value="5">5 ستاره</option>
-                                                        <option value="4">4 ستاره</option>
-                                                        <option value="3">3 ستاره</option>
-                                                        <option value="2">2 ستاره</option>
-                                                        <option value="1">1 ستاره</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="5"
-                                                              placeholder="نظر شما*"></textarea>
-                                                </div>
-                                                <button type="submit" class="theme-btn"><span
-                                                        class="far fa-paper-plane"></span> ارسال نظر
-                                                </button>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <select class="form-control form-select" name="rate" required>
+                                                    <option value required>امتیاز</option>
+                                                    <option value="5" >5 ستاره</option>
+                                                    <option value="4">4 ستاره</option>
+                                                    <option value="3">3 ستاره</option>
+                                                    <option value="2">2 ستاره</option>
+                                                    <option value="1">1 ستاره</option>
+                                                </select>
                                             </div>
                                         </div>
-                                    </form>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="5" placeholder="نظر شما"
+                                                    for="descriptionModelInput" id="descriptionModelInput" name="description"></textarea>
+                                            </div>
+                                            <button type="submit" class="theme-btn"><span class="far fa-paper-plane"
+                                                    form="review-form">
+                                                </span> ارسال نظر
+                                            </button>
+                                        </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    
+        </div>
+
         {% show_similar_product product=object %}
 
-
-{% endblock content %}
+        {% endblock content %}

@@ -34,7 +34,9 @@ class ProductModel(models.Model):
     status = models.IntegerField(choices=ProductStatusType.choices,default=ProductStatusType.publish.value)
     price = models.DecimalField(default=0,max_digits=10,decimal_places=0)
     discount_percent = models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(100)])
-
+    
+    ave_rate = models.FloatField(default=0.0)
+    
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     
