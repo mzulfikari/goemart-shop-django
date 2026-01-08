@@ -25,7 +25,7 @@ Goemart  یک فروشگاه اینترنتی مبتنی بر Django است که
 ```
 envs/dev.env
 ```
- ### **نمونه:**
+ ### **Example:**
 
 ```
 DEBUG=1
