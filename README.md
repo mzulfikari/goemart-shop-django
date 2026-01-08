@@ -43,13 +43,17 @@ ALLOWED_HOSTS=*
 ---
 ## ▶️ Run Project with Docker (Recommended)
 
-``` docker-compose exec web python manage.py migrate ```
-
----
-## 2️⃣ Apply migrations
 ```
 docker-compose exec web python manage.py migrate
 ```
+
+---
+## 2️⃣ Apply 
+
+```
+docker-compose exec web python manage.py migrate
+```
+
 ---
 ## 3️⃣ Create superuser
 
@@ -64,4 +68,12 @@ docker-compose exec web python manage.py createsuperuser
 
 🔐 **Admin panel: http://localhost:8000/admin**
 
+---
+
+## 🛠 Useful Docker Commands
+
+ ### **Stop containers:**
+```
+docker-compose down
+```
 ---
