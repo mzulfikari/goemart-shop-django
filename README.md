@@ -97,6 +97,6 @@ python manage.py runserver
 ---
 
 ## 📌 Roadmap
-• <span style="font-size:14px;">**Backend:** Django</span> • <span style="font-size:14px;">**Frontend:** HTML, CSS, JavaScript</span> • <span style="font-size:14px;">**Database:** SQLite (Development)</span> • <span style="font-size:14px;">**Containerization:** Docker & Docker Compose</span> • <span style="font-size:14px;">**Template Engine:** Django Templates</span>
+• <span style="font-size:14px;">**Backend:** Django</span> • <span style="font-size:14px;">**Frontend:** HTML, CSS, JavaScript</span> • <span style="font-size:14px;">**Database:** SQLite (Development)</span> • <span style="font-size:14px;">**Containerization:** Docker & Docker Compose</span> • <span style="font-size:14px;">**Template Engine:** Django</span>
 
 ---
