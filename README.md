@@ -80,5 +80,9 @@ docker-compose down
  ```
 docker-compose build
 ```
+ ### **View logs:**
+ ```
+docker-compose logs -f
+```
 ---
 
