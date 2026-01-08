@@ -12,7 +12,7 @@
 
 
 <div dir="rtl">
-Goemart  یک فروشگاه اینترنتی مبتنی بر Django است که با معماری ماژولار طراحی شده و به‌صورت کامل از طریق Docker و Docker Compose قابل اجرا، توسعه و استقرار می‌باشد. این پروژه با هدف ایجاد یک ساختار استاندارد، مقیاس‌پذیر و مناسب برای محیط‌های توسعه، تست و Production طراحی شده است.
+Goemart is an online store built on Django, designed with a modular architecture, and fully runnable, developable, and deployable through Docker and Docker Compose. This project aims to provide a standardized, scalable structure suitable for development, testing, and production environments.
 </div>
 
 
