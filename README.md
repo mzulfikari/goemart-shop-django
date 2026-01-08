@@ -27,3 +27,9 @@ Goemart  یک فروشگاه اینترنتی مبتنی بر Django است که
 - ⚙️ مدیریت تنظیمات محیطی با env
 
 ---
+
+## ⚙️ Environment Variables
+
+```
+envs/dev.env
+```
