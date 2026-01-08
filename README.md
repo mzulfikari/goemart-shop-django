@@ -93,8 +93,5 @@ python manage.py runserver
 ```
 ---
 ## 🧑‍💻 Tech Stack
-• **Backend:** Django 
-• **Frontend:** HTML, CSS, JavaScript 
-• **Database:** SQLite (dev) 
-• **Containerization:** Docker & Docker Compose
+• **Backend:** Django<br> • **Frontend:** HTML, CSS, JavaScript<br> • **Database:** SQLite (dev)<br> • **Containerization:** Docker & Docker Compose<br>
 ---
