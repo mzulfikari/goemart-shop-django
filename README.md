@@ -88,14 +88,10 @@ python manage.py migrate
 python manage.py runserver
 ```
 ---
+
 ## 🧑‍💻 Tech Stack
 
 • <span style="font-size:14px;">**Backend:** Django</span><br> • <span style="font-size:14px;">**Frontend:** HTML, CSS, JavaScript</span><br> • <span style="font-size:14px;">**Database:** SQLite (dev)</span><br> • <span style="font-size:14px;">**Containerization:** Docker & Docker Compose</span><br>
-
----
-
-## 🧑‍💻 Tech Stack
-• <span style="font-size:14px;">**Backend:** Django</span><br> • <span style="font-size:14px;">**Frontend:** HTML, CSS, JavaScript</span><br> • <span style="font-size:14px;">**Database:** SQLite (Development)</span><br> • <span style="font-size:14px;">**Containerization:** Docker & Docker Compose</span><br> • <span style="font-size:14px;">**Template Engine:** Django</span><br>
 
 ---
 
