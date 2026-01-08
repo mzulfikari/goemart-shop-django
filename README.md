@@ -85,4 +85,16 @@ docker-compose build
 docker-compose logs -f
 ```
 ---
-
+## 🧪 Run Project without Docker (Optional)
+```
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+---
+## 🧑‍💻 Tech Stack
+• **Backend:** Django 
+• **Frontend:** HTML, CSS, JavaScript 
+• **Database:** SQLite (dev) 
+• **Containerization:** Docker & Docker Compose
+---
