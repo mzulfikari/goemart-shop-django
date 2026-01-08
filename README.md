@@ -76,4 +76,9 @@ docker-compose exec web python manage.py createsuperuser
 ```
 docker-compose down
 ```
+ ### **Rebuild only:**
+ ```
+docker-compose build
+```
 ---
+
