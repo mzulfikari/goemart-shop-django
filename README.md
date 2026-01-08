@@ -33,10 +33,35 @@ Goemart  یک فروشگاه اینترنتی مبتنی بر Django است که
 ```
 envs/dev.env
 ```
- ### **نمونه**
-:
+ ### **نمونه:**
+
 ```
 DEBUG=1
 SECRET_KEY=django-insecure-secret-key
 ALLOWED_HOSTS=*
 ```
+---
+## ▶️ Run Project with Docker (Recommended)
+
+``` docker-compose exec web python manage.py migrate ```
+
+---
+## 2️⃣ Apply migrations
+```
+docker-compose exec web python manage.py migrate
+```
+---
+## 3️⃣ Create superuser
+
+```
+docker-compose exec web python manage.py createsuperuser
+```
+---
+## 4️⃣ Access project
+
+
+🌐 **Website: http://localhost:8000**
+
+🔐 **Admin panel: http://localhost:8000/admin**
+
+---
