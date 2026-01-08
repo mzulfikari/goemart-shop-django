@@ -93,7 +93,9 @@ python manage.py runserver
 ```
 ---
 ## 🧑‍💻 Tech Stack
-• **Backend:** Django<br> • **Frontend:** HTML, CSS, JavaScript<br> • **Database:** SQLite (dev)<br> • **Containerization:** Docker & Docker Compose<br>
+
+• <span style="font-size:14px;">**Backend:** Django</span><br> • <span style="font-size:14px;">**Frontend:** HTML, CSS, JavaScript</span><br> • <span style="font-size:14px;">**Database:** SQLite (dev)</span><br> • <span style="font-size:14px;">**Containerization:** Docker & Docker Compose</span><br>
+
 ---
 
 ## 🧑‍💻 Tech Stack
@@ -105,3 +107,6 @@ python manage.py runserver
 • <span style="font-size:14px;">**PostgreSQL service**</span><br> • <span style="font-size:14px;">**Payment gateway**</span><br> • <span style="font-size:14px;">**REST API**</span><br> • <span style="font-size:14px;">**Production Docker setup**</span><br> • <span style="font-size:14px;">**CI/CD**</span><br>
 
 ---
+## 📄 License
+
+• <span style="font-size:14px;">**MIT License**</span><br> • <span style="font-size:14px;">**Developed by Morteza ❤️**</span><br>
