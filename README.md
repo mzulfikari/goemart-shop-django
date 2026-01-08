@@ -96,7 +96,12 @@ python manage.py runserver
 • **Backend:** Django<br> • **Frontend:** HTML, CSS, JavaScript<br> • **Database:** SQLite (dev)<br> • **Containerization:** Docker & Docker Compose<br>
 ---
 
-## 📌 Roadmap
+## 🧑‍💻 Tech Stack
 • <span style="font-size:14px;">**Backend:** Django</span><br> • <span style="font-size:14px;">**Frontend:** HTML, CSS, JavaScript</span><br> • <span style="font-size:14px;">**Database:** SQLite (Development)</span><br> • <span style="font-size:14px;">**Containerization:** Docker & Docker Compose</span><br> • <span style="font-size:14px;">**Template Engine:** Django</span><br>
+
+---
+
+## 📌 Roadmap
+• <span style="font-size:14px;">**PostgreSQL service**</span><br> • <span style="font-size:14px;">**Payment gateway**</span><br> • <span style="font-size:14px;">**REST API**</span><br> • <span style="font-size:14px;">**Production Docker setup**</span><br> • <span style="font-size:14px;">**CI/CD**</span><br>
 
 ---
