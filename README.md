@@ -1,8 +1,12 @@
 ##  🛒 Goemart Shop – Django E-Commerce (Dockerized)
 
 <img src="/docs/db.Diagram.png">
-
-
+<img src="/docs/home.png">
+<img src="/docs/product.png">
+<img src="/docs/managment order.png">
+<img src="/docs/managmet product.png">
+<img src="/docs/add product.png">
+<img src="/docs/mangment message.png
 
 ---
 
