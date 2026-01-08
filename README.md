@@ -16,15 +16,7 @@ Goemart  یک فروشگاه اینترنتی مبتنی بر Django است که
 ---
 ## 🚀 Features
 
-- 👤 سیستم حساب کاربری (ثبت‌نام، ورود، پروفایل)
-- 🛍️ مدیریت محصولات
-- 🛒 سبد خرید
-- 📦 ثبت و مدیریت سفارش‌ها
-- 🎨 قالب‌های HTML فروشگاهی
-- 🔐 اعتبارسنجی فرم‌ها
-- 🧱 معماری ماژولار Django
-- 🐳 اجرای کامل با Docker
-- ⚙️ مدیریت تنظیمات محیطی با env
+• <span style="font-size:14px;">**User authentication system (signup, login, profile)**</span><br> • <span style="font-size:14px;">**Product management**</span><br> • <span style="font-size:14px;">**Shopping cart**</span><br> • <span style="font-size:14px;">**Order creation and management**</span><br> • <span style="font-size:14px;">**HTML-based store templates**</span><br> • <span style="font-size:14px;">**Form validation**</span><br> • <span style="font-size:14px;">**Modular Django architecture**</span><br> • <span style="font-size:14px;">**Full Docker support**</span><br> • <span style="font-size:14px;">**Environment-based configuration (env files)**</span><br>env
 
 ---
 
